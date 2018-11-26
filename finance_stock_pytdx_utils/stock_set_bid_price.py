@@ -34,7 +34,7 @@ class stock_set_bid_price(object):
                          continue
 
                      if(queryflag):
-                         returndata = api.to_df(api.get_transaction_data(market,str(row.code), 0, 1600))
+                         returndata = api.to_df(api.get_transaction_data(market,str(row.code), 0, 6000))
                          if(returndata.empty !=True):
                              try:
                                  data = returndata.sort_values(['time'], ascending=[True]).head(1)
@@ -68,7 +68,7 @@ class stock_set_bid_price(object):
                          continue
 
                      if(queryflag):
-                         returndata = api.to_df(api.get_transaction_data(market,str(row.code), 0, 1600))
+                         returndata = api.to_df(api.get_transaction_data(market,str(row.code), 0, 6000))
                          if(returndata.empty !=True):
                              try:
                                  data = returndata.sort_values(['time'], ascending=[True]).head(1)

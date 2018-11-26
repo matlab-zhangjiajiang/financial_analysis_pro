@@ -29,6 +29,9 @@ class stock_topten_holdlers_change(object):
         return pdd
         # print(pdd)
 
+
+
+
     # 大股东增持的股票
     def increase_hold_stock_infor(self, tablestartid, tableendid, holdername):
         sql = " SELECT DISTINCT stockdata.* FROM (SELECT SUBSTR(ts_code, 1, 6) AS STOCKCODE " \
@@ -41,6 +44,9 @@ class stock_topten_holdlers_change(object):
         conengine = dbmanager.sql_manager().init_engine()
         data = pd.read_sql_query(sql, conengine)
         print(data)
+
+
+
 
     # 大庄家穿插
     def topten_holders_across_hold(self, tablestartid, tableendid):
