@@ -32,7 +32,8 @@ class all_financial_infor_utils(object):
           downroad = list(dowllist['filename'])
           datacrawler = HistoryFinancialCrawler()
           for road in downroad:
-              datacrawler.fetch_and_parse(reporthook=demo_reporthook, filename=road,path_to_download=road)
+              if os.path.exists(road) != True:
+                 datacrawler.fetch_and_parse(reporthook=demo_reporthook, filename=road,path_to_download=road)
 
       def get_single_financial_resource(self,current_filename):
           datacrawler = HistoryFinancialCrawler()
@@ -42,7 +43,6 @@ class all_financial_infor_utils(object):
           database_data = reader.get_df(current_filename)
           database_data = renames.rename_list_utils().rename_current_finance_utils(database_data)
           print(database_data)
-          database_data.to_excel('currentdata.xlsx')
 
 
 if __name__ == '__main__':

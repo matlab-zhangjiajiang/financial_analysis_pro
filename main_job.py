@@ -30,14 +30,14 @@ def holders_across_holdes_job():
 
 
 ##南上北下资金流向
-@sched.scheduled_job('interval',day_of_week='mon-fri', hour=1)
+@sched.scheduled_job('interval', seconds=3600)
 def init_stock_money_flow_data_job():
     flowdatajob = flowdata.stock_money_flow_data()
     flowdatajob.init_money_flow_data()
 
 
 #公告信息利空
-@sched.scheduled_job('interval',day_of_week='mon-fri', hour=1)
+@sched.scheduled_job('interval', seconds=3600)
 def news_report_research_job():
     jobone = remanager.exchange_stock_notice_manager()
     jobone.get_announcement_all()
