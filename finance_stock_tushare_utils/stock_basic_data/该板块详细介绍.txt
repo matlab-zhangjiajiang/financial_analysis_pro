@@ -1,0 +1,3 @@
+init_stock_infor  --->股票基本信息
+stock_every_deal_data --->分笔成交分析
+stock_pledge_infor ---->质押比例

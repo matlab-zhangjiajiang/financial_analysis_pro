@@ -1,0 +1,18 @@
+1.pytdx 连接服务器的目录地址为: https://github.com/rainx/pytdx/issues/3
+2.pydex 使用标准为https://github.com/rainx/pytdx/issues/3
+3.pytdx 使用方法API: https://rainx.gitbooks.io/pytdx/content/
+
+以3开头的股票是创业板股票。另外以0开头的是深市A股，1开头的是深市基金，2开头的是深市B股股票，
+5开头的是沪市基金，6开头的是泸市A股，9开头的是泸市B股
+
+
+
+各个框架使用标准为:
+stock_set_bid_price  集合竞价模块
+
+中文分词插件 :jieba
+pip install jieba
+
+
+
+

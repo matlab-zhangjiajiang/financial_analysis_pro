@@ -1,0 +1,81 @@
+SELECT  *  FROM (
+SELECT  COUNT(ts_code) AS counts, DATAS.holder_name AS holdername, DATAS.hold_amount AS holdamount , DATAS.ann_date
+FROM finance_system_stock_circulat_holds_data_20180301 AS DATAS
+WHERE 1=1 GROUP BY holder_name) AS TEMP ORDER BY TEMP.counts DESC;
+
+SELECT  *  FROM (
+SELECT  COUNT(ts_code) AS counts, DATAS.holder_name AS holdername, DATAS.hold_amount AS holdamount , DATAS.ann_date
+FROM finance_system_stock_circulat_holds_data_20180630 AS DATAS
+WHERE 1=1 GROUP BY holder_name) AS TEMP ORDER BY TEMP.counts DESC;
+
+
+##减持阶段
+SELECT  *  FROM
+(SELECT  SUBSTR(ts_code,1,6) AS STOCKCODE  FROM  finance_system_stock_circulat_holds_data_20180301 WHERE ts_code NOT IN(
+ SELECT  ts_code  FROM  finance_system_stock_circulat_holds_data_20180630 WHERE holder_name ='中央汇金资产管理有限责任公司'
+) and holder_name ='中央汇金资产管理有限责任公司')  CODES
+LEFT JOIN finance_system_basic_stock_data as stockdata on stockdata.code = CODES.STOCKCODE
+ORDER BY pe ASC;
+
+
+##增持阶段
+SELECT  *  FROM ( SELECT SUBSTR(ts_code, 1, 6) AS STOCKCODE
+FROM finance_system_stock_circulat_holds_data_20180630
+WHERE ts_code NOT IN (SELECT ts_code FROM
+finance_system_stock_circulat_holds_data_20180301 WHERE holder_name = '香港中央结算有限公司(陆股通)')
+AND holder_name = '香港中央结算有限公司(陆股通)') CODES
+LEFT JOIN finance_system_basic_stock_data AS stockdata ON stockdata. CODE = CODES.STOCKCODE
+ORDER BY pe ASC;
+
+##各个资本同时增持
+##增持阶段
+SELECT
+	*
+FROM
+	(
+		SELECT
+			DISTINCT *
+		FROM
+			(
+				SELECT
+					SUBSTR(ts_code, 1, 6) AS STOCKCODE
+				FROM
+					finance_system_stock_circulat_holds_data_20180630
+				WHERE
+					ts_code NOT IN (
+						SELECT
+							ts_code
+						FROM
+							finance_system_stock_circulat_holds_data_20180301
+						WHERE
+							holder_name = '中央汇金资产管理有限责任公司'
+					)
+				AND holder_name = '中央汇金资产管理有限责任公司'
+			) CODES
+		LEFT JOIN finance_system_basic_stock_data AS stockdata ON stockdata. CODE = CODES.STOCKCODE
+		UNION ALL
+			SELECT
+				DISTINCT *
+			FROM
+				(
+					SELECT
+						SUBSTR(ts_code, 1, 6) AS STOCKCODE
+					FROM
+						finance_system_stock_circulat_holds_data_20180630
+					WHERE
+						ts_code NOT IN (
+							SELECT
+								ts_code
+							FROM
+								finance_system_stock_circulat_holds_data_20180301
+							WHERE
+								holder_name = '香港中央结算有限公司(陆股通)'
+						)
+					AND holder_name = '香港中央结算有限公司(陆股通)'
+				) CODES
+			LEFT JOIN finance_system_basic_stock_data AS stockdata ON stockdata. CODE = CODES.STOCKCODE
+	) ALLSDATA
+GROUP BY
+	ALLSDATA.STOCKCODE
+HAVING
+	COUNT(ALLSDATA.STOCKCODE) > 1;

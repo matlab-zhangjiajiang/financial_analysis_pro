@@ -1,0 +1,1 @@
+mysql-python [数据库连接插件]

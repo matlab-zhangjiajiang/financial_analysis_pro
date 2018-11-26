@@ -1,0 +1,9 @@
+框架工具类介绍:
+stockindicatorutils --> 股票技术指标工具
+stockpledgeutils -->股票股权质押分析工具
+stockbasicsideutils -->股票基本面分析工具
+stockclassifyutils -->股票分类分析工具
+stock_basic_area  -->所有股票所在区域的平均利润率
+
+phantomjs+urllib --->爬虫
+
