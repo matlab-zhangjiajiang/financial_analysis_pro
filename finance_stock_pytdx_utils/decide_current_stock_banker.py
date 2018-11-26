@@ -1,4 +1,5 @@
 #coding=utf-8
+import pandas as pd
 from pytdx.hq import TdxHq_API
 from pytdx.params import TDXParams
 from finance_stock_dao_model import stock_infor_base_dto as basicvo
@@ -36,10 +37,11 @@ class decide_current_stock_banker(object):
                     if (returndata.empty != True):
                         try:
                             data = returndata.sort_values(['time'], ascending=[True])
-                            print(data)
-                            datas = list(data['vol'])[0]
+                            datas = data['vol'].astype(float)
+                            format_data = pd.value_counts(datas)
+                            print(format_data)
                         except Exception as error:
-                            print('------->' + str(row.code) + ':' + str(row.name) + '----->执行查询出错')
+                            print (error.message)
 
 if __name__ == '__main__':
     decide_current_stock_banker().decide_stock_banker()
