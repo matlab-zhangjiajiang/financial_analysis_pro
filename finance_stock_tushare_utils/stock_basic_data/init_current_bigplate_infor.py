@@ -45,11 +45,6 @@ class init_bigplate_infor(object):
         data = pd.read_sql_query(sql,conengine)
         indexlist = list(data['dateid'])
         pbratios = data.broken_pb_ratio.T.values.astype(float)
-
-        ##finance_system_basic_bigplate_sign_data
-        newsql ="select * from  finance_system_basic_bigplate_sign_data"
-        newdata = pd.read_sql_query(newsql,conengine)
-
         newdata = pd.DataFrame({'broken_pb_ratio': pbratios}, index=pd.to_datetime(indexlist))
         newdata.plot(title='Broken Pb Show')
         plt.show()
