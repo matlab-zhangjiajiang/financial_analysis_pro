@@ -16,7 +16,7 @@ class stock_money_flow_data(object):
         data = pro.moneyflow_hsgt(start_date='20180125', end_date=dateutils.datetimeutils().get_current_time_new())
         engine = dbmanager.sql_manager().init_engine()
         pd.io.sql.to_sql(data, 'finance_system_stock_money_flow_data', con=engine,
-                         if_exists='append', index=False,chunksize=1000)
+                         if_exists='replace', index=False,chunksize=1000)
         self.change_table_structure()
 
     def change_table_structure(self):
