@@ -21,10 +21,12 @@ pd.set_option('display.max_columns',None,'precision',5)
 
 class all_financial_infor_utils(object):
 
+
       def get_all_financial_list_utils(self):
           crawler = HistoryFinancialListCrawler()
           list_data = crawler.fetch_and_parse()
           return pd.DataFrame(data=list_data)
+
 
 
       def get_all_financial_resource(self):
@@ -35,6 +37,7 @@ class all_financial_infor_utils(object):
               if os.path.exists(road) != True:
                  datacrawler.fetch_and_parse(reporthook=demo_reporthook, filename=road,path_to_download=road)
 
+
       def get_single_financial_resource(self,current_filename):
           datacrawler = HistoryFinancialCrawler()
           if os.path.exists(current_filename) != True:
@@ -42,9 +45,23 @@ class all_financial_infor_utils(object):
           reader = HistoryFinancialReader()
           database_data = reader.get_df(current_filename)
           database_data = renames.rename_list_utils().rename_current_finance_utils(database_data)
-          print(database_data)
+          return database_data
 
+
+
+      def get_current_target(self,code,columnlist):
+          dowllist = self.get_all_financial_list_utils()
+          downroad = list(dowllist['filename'])
+          for name in downroad:
+              data = self.get_single_financial_resource(name)
+              currentdate = name[4:len(name)-4]
+              filterdata = data.loc[data.index==code,columnlist].drop_duplicates()
+              holders_pandas = None
+              if (filterdata.empty != True):
+                  filterdata['date'] = currentdate
+                  print(filterdata.reset_index(drop=False,inplace=False))
 
 if __name__ == '__main__':
      #all_financial_infor_utils().get_all_financial_resource()
-     all_financial_infor_utils().get_single_financial_resource('gpcw20180930.zip')
+     #all_financial_infor_utils().get_single_financial_resource('gpcw20180930.zip')
+     all_financial_infor_utils().get_current_target('002042',['EPS','turnoverRatioOfInventory','currentRatio'])
