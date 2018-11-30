@@ -46,4 +46,5 @@ class all_financial_infor_utils(object):
 
 
 if __name__ == '__main__':
+     #all_financial_infor_utils().get_all_financial_resource()
      all_financial_infor_utils().get_single_financial_resource('gpcw20180930.zip')
