@@ -59,9 +59,10 @@ class all_financial_infor_utils(object):
               holders_pandas = None
               if (filterdata.empty != True):
                   filterdata['date'] = currentdate
+                  #pd.concat(holders_pandas,filterdata)
                   print(filterdata)
 
 if __name__ == '__main__':
      #all_financial_infor_utils().get_all_financial_resource()
      #all_financial_infor_utils().get_single_financial_resource('gpcw20180930.zip')
-     all_financial_infor_utils().get_current_target('001696',['EPS','turnoverRatioOfInventory','currentRatio'])
+     all_financial_infor_utils().get_current_target('001696',['EPS','ROE','turnoverRatioOfInventory','currentRatio','numberOfShareholders'])
