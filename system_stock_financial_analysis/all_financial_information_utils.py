@@ -52,15 +52,24 @@ class all_financial_infor_utils(object):
       def get_current_target(self,code,columnlist):
           dowllist = self.get_all_financial_list_utils()
           downroad = list(dowllist['filename'])
+          engine = dbmanager.sql_manager().init_engine()
+          all_data_pandas = None
+          print(type(all_data_pandas))
           for name in downroad:
               data = self.get_single_financial_resource(name)
               currentdate = name[4:len(name)-4]
               filterdata = data.loc[data.index==code,columnlist].drop_duplicates()
-              holders_pandas = None
               if (filterdata.empty != True):
-                  filterdata['date'] = currentdate
-                  #pd.concat(holders_pandas,filterdata)
-                  print(filterdata)
+                  #filterdata['date'] = currentdate
+                  filterdata.index = [currentdate]
+                  if (all_data_pandas==None):
+                      all_data_pandas = filterdata
+                  else:
+                      all_data_pandas = pd.concat(all_data_pandas, filterdata)
+          print(all_data_pandas)
+          pd.io.sql.to_sql(all_data_pandas, 'finance_system_stock_financial_analysis_data', con=engine,
+                           if_exists='replace', index=False, chunksize=1000)
+
 
 if __name__ == '__main__':
      #all_financial_infor_utils().get_all_financial_resource()
