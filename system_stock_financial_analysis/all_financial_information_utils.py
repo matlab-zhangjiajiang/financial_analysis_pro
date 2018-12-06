@@ -54,7 +54,7 @@ class all_financial_infor_utils(object):
           downroad = list(dowllist['filename'])
           engine = dbmanager.sql_manager().init_engine()
           all_data_pandas = None
-          print(type(all_data_pandas))
+          i=0
           for name in downroad:
               data = self.get_single_financial_resource(name)
               currentdate = name[4:len(name)-4]
@@ -62,10 +62,12 @@ class all_financial_infor_utils(object):
               if (filterdata.empty != True):
                   #filterdata['date'] = currentdate
                   filterdata.index = [currentdate]
-                  if (all_data_pandas==None):
+                  filterdata['year'] = [currentdate]
+                  if (i == 0):
                       all_data_pandas = filterdata
                   else:
-                      all_data_pandas = pd.concat(all_data_pandas, filterdata)
+                      all_data_pandas = pd.concat([all_data_pandas, filterdata])
+              i +=1
           print(all_data_pandas)
           pd.io.sql.to_sql(all_data_pandas, 'finance_system_stock_financial_analysis_data', con=engine,
                            if_exists='replace', index=False, chunksize=1000)
