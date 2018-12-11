@@ -1,6 +1,7 @@
 #coding=utf-8
 from pytdx.hq import TdxHq_API
 import pandas as pd
+import threadpool as tp
 from pytdx.params import TDXParams
 from finance_stock_pytdx_utils.connection_host_server import connection_host_server as serviceinfo
 from pytdx.crawler.history_financial_crawler import HistoryFinancialListCrawler
@@ -20,6 +21,12 @@ pd.set_option('display.max_columns',None,'precision',5)
 
 
 class all_financial_infor_utils(object):
+
+      returnfilterdata =[]
+
+      def __init__(self,code,columnlist):
+          self.code = code
+          self.columnlist = columnlist
 
 
       def get_all_financial_list_utils(self):
@@ -48,8 +55,28 @@ class all_financial_infor_utils(object):
           return database_data
 
 
+      def get_current_target_by_thread_fun(self,name):
+          data = self.get_single_financial_resource(name)
+          currentdate = name[4:len(name) - 4]
+          filterdata = data.loc[data.index == self.code, self.columnlist].drop_duplicates()
+          if (filterdata.empty != True):
+              # filterdata['date'] = currentdate
+              filterdata.index = [currentdate]
+              filterdata['year'] = [currentdate]
+              print(filterdata)
 
-      def get_current_target(self,code,columnlist):
+
+      def get_current_target_by_thread(self):
+          dowllist = self.get_all_financial_list_utils()
+          downroad = list(dowllist['filename'])
+          pool = tp.ThreadPool(30)
+          requests = tp.makeRequests(self.get_current_target_by_thread_fun, downroad)
+          [pool.putRequest(req) for req in requests]
+          pool.wait()
+
+
+
+      def get_current_target(self):
           dowllist = self.get_all_financial_list_utils()
           downroad = list(dowllist['filename'])
           engine = dbmanager.sql_manager().init_engine()
@@ -58,7 +85,7 @@ class all_financial_infor_utils(object):
           for name in downroad:
               data = self.get_single_financial_resource(name)
               currentdate = name[4:len(name)-4]
-              filterdata = data.loc[data.index==code,columnlist].drop_duplicates()
+              filterdata = data.loc[data.index==self.code,self.columnlist].drop_duplicates()
               if (filterdata.empty != True):
                   #filterdata['date'] = currentdate
                   filterdata.index = [currentdate]
@@ -76,4 +103,6 @@ class all_financial_infor_utils(object):
 if __name__ == '__main__':
      #all_financial_infor_utils().get_all_financial_resource()
      #all_financial_infor_utils().get_single_financial_resource('gpcw20180930.zip')
-     all_financial_infor_utils().get_current_target('001696',['EPS','ROE','turnoverRatioOfInventory','currentRatio','numberOfShareholders'])
+     code = '001696'
+     columnlist= ['EPS','ROE','turnoverRatioOfInventory','currentRatio','numberOfShareholders']
+     all_financial_infor_utils(code,columnlist).get_current_target()
