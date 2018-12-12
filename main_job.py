@@ -45,11 +45,5 @@ def news_report_research_job():
     jobtwo.study_stock_notice_news()
 
 
-
-##################################################################################################
-def
-
-
-
 print('sched----->start')
 sched.start()
