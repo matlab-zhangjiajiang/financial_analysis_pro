@@ -37,7 +37,7 @@ def init_stock_money_flow_data_job():
 
 
 #公告信息利空
-@sched.scheduled_job('interval', seconds=3600)
+@sched.scheduled_job('interval', seconds=600)
 def news_report_research_job():
     jobone = remanager.exchange_stock_notice_manager()
     jobone.get_announcement_all()
