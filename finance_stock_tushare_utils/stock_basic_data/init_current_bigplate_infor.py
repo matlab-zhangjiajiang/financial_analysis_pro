@@ -52,4 +52,4 @@ class init_bigplate_infor(object):
 if __name__ == '__main__':
     init_bigplate_infor().init_basic_stock_infor()
     init_bigplate_infor().init_current_bigplate_info()
-    init_bigplate_infor().current_bigplate_infor_show()
+    #init_bigplate_infor().current_bigplate_infor_show()

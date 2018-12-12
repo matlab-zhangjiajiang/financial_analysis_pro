@@ -50,11 +50,12 @@ class exchange_stock_notice_manager(object):
         result = result.decode('gbk')                       # 转换编码
         pattern = re.compile(ur'\[(.*?)\]')                 # 匹配每条公告
         pattern_result = pattern.findall(result)            # 匹配结果
+        targeturl = 'http://disclosure.szse.cn/'
         #f = self.open_file('announcement_' + today + '.dat')      # 新建文件
         for s in pattern_result:
             splits = s.split(',')                           # 切割公告信息
             info_code = splits[0].strip('[').strip('"')     # 分离股票代码
-            info_url = splits[1].strip('"')                 # 分离URL链接地址
+            info_url = targeturl+splits[1].strip('"')                 # 分离URL链接地址
             info_title = splits[2].strip('"')               # 公告标题
             info_time = splits[-1].strip('"').strip(']')    # 公告时间戳
             key_time = info_time[0:10]                      # 公告时间

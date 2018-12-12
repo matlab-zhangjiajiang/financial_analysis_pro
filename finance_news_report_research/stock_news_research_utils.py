@@ -6,7 +6,7 @@ from finance_common_utils.mysql_dbutils import sqlalchemy_dbutils as dbmanager
 reload(sys)
 sys.setdefaultencoding('utf-8') #设置系统运行编码
 
-url="D:\\financial_analysis_pro\\finance_news_report_research\\good_dict.txt"
+url="E:\\GitHub\\financial_analysis_pro\\finance_news_report_research\\good_dict.txt"
 
 class stock_news_research_utils(object):
 
