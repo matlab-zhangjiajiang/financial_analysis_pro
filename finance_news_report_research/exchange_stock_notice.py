@@ -6,7 +6,6 @@ import urllib
 import codecs
 import re
 from finance_stock_dao_model.exchange_stock_notice_infor_dto import exchange_stock_notice_infor_dto as dto
-import finance_common_utils.mysql_dbutils.sqlalchemy_dbutils as dbmanager
 
 ###https://www.lfd.uci.edu/~gohlke/pythonlibs/
 ###http://quant.10jqka.com.cn/platform/html/article.html#id/89446584
@@ -51,6 +50,7 @@ class exchange_stock_notice_manager(object):
         pattern = re.compile(ur'\[(.*?)\]')                 # 匹配每条公告
         pattern_result = pattern.findall(result)            # 匹配结果
         targeturl = 'http://disclosure.szse.cn/'
+        infordata =[]
         #f = self.open_file('announcement_' + today + '.dat')      # 新建文件
         for s in pattern_result:
             splits = s.split(',')                           # 切割公告信息
@@ -60,11 +60,9 @@ class exchange_stock_notice_manager(object):
             info_time = splits[-1].strip('"').strip(']')    # 公告时间戳
             key_time = info_time[0:10]                      # 公告时间
             vo = dto(stock_code=info_code,info_url=info_url,info_title=info_title,key_time=key_time)
-            dbmanager.sql_manager().single_common_save_basedata(vo)
+            infordata.append(vo)
+            #dbmanager.sql_manager().single_common_save_basedata(vo)
             #line = info_code+' '+info_url+' '+info_title+' '+key_time   # 拼接一条公告
             #self.write(f, line)                                  # 写入文件
         #self.close_file(f)
-
-
-if __name__ == '__main__':
-    exchange_stock_notice_manager().get_announcement_all()
+        return infordata

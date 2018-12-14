@@ -3,12 +3,17 @@ import jieba
 import sys
 from finance_stock_dao_model.exchange_stock_notice_infor_dto import exchange_stock_notice_infor_dto as dto
 from finance_common_utils.mysql_dbutils import sqlalchemy_dbutils as dbmanager
+from finance_news_report_research import exchange_stock_notice as spidernews
 reload(sys)
 sys.setdefaultencoding('utf-8') #设置系统运行编码
 
 url="E:\\GitHub\\financial_analysis_pro\\finance_news_report_research\\good_dict.txt"
 
 class stock_news_research_utils(object):
+
+
+      def __init__(self,spidernews):
+          self.spidernews = spidernews
 
       def study_current_dict(self,txt):
 
@@ -38,9 +43,8 @@ class stock_news_research_utils(object):
 
 
       def study_stock_notice_news(self):
-          notices = dbmanager.sql_manager().common_get_all_basedata(dto)
-          obj = stock_news_research_utils()
-          for newsreport in notices:
+          obj = stock_news_research_utils(self.spidernews)
+          for newsreport in self.spidernews:
               obj.study_current_dict(newsreport.info_title)
 
 
@@ -54,9 +58,8 @@ class stock_news_research_utils(object):
           file.close()
 
           ##获取所有的有利消息标志.
-          notices = dbmanager.sql_manager().common_get_all_basedata(dto)
-          obj = stock_news_research_utils()
-          for newsreport in notices:
+          obj = stock_news_research_utils(self.spidernews)
+          for newsreport in self.spidernews:
               infotitle = newsreport.info_title
               forflag = False
               for goodflag in list:
@@ -64,9 +67,10 @@ class stock_news_research_utils(object):
                      forflag = True
                      break
               if(forflag):
-                  print(infotitle)
+                  dbmanager.sql_manager().single_common_save_basedata(newsreport)
 
 
 if __name__ == '__main__':
-    stock_news_research_utils().study_stock_notice_news()
-    stock_news_research_utils().select_good_news_stock()
+    spidernotices = spidernews.exchange_stock_notice_manager().get_announcement_all()
+    stock_news_research_utils(spidernotices).study_stock_notice_news()
+    stock_news_research_utils(spidernotices).select_good_news_stock()

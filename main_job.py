@@ -36,13 +36,16 @@ def init_stock_money_flow_data_job():
     flowdatajob.init_money_flow_data()
 
 
-#公告信息利空
+#公告信息有利
 @sched.scheduled_job('interval', seconds=600)
 def news_report_research_job():
     jobone = remanager.exchange_stock_notice_manager()
-    jobone.get_announcement_all()
-    jobtwo = newsmanager.stock_news_research_utils()
+    spidernotices = jobone.get_announcement_all()
+    jobtwo = newsmanager.stock_news_research_utils(spidernotices)
     jobtwo.study_stock_notice_news()
+    jobtwo.select_good_news_stock()
+
+
 
 
 print('sched----->start')

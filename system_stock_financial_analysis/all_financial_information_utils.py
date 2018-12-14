@@ -75,7 +75,6 @@ class all_financial_infor_utils(object):
           pool.wait()
 
 
-
       def get_current_target(self):
           dowllist = self.get_all_financial_list_utils()
           downroad = list(dowllist['filename'])
