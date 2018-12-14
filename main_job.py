@@ -13,8 +13,8 @@ import sys
 reload(sys)
 sys.setdefaultencoding('utf-8')
 
-#表示从星期一到星期五下午4:30（AM）直到2089-04-24 00:00:00
-@sched.scheduled_job('cron',day_of_week='mon-fri', hour=17, minute=00,end_date='2089-04-24')
+#表示从星期一到星期五下午17:30（AM）直到2089-04-24 00:00:00
+@sched.scheduled_job('cron',day_of_week='mon-fri', hour=17, minute=30,end_date='2089-04-24')
 def format_pe_job():
     plate = bigplate.init_bigplate_infor()
     plate.init_basic_stock_infor()
@@ -36,7 +36,7 @@ def init_stock_money_flow_data_job():
     flowdatajob.init_money_flow_data()
 
 
-#公告信息有利
+#[公告信息]---->有利
 @sched.scheduled_job('interval', seconds=600)
 def news_report_research_job():
     jobone = remanager.exchange_stock_notice_manager()
