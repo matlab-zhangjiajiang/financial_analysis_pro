@@ -23,8 +23,8 @@ class stock_topten_holdlers_change(object):
               ' WHERE 1=1 GROUP BY holder_name) AS TEMP ORDER BY TEMP.counts DESC '
         conengine = dbmanager.sql_manager().init_engine()
         data = pd.read_sql_query(sql, conengine)
-        holdername = data.head(100)['holdername']
-        counts = data.head(100)['counts']
+        holdername = data.head(300)['holdername']
+        counts = data.head(300)['counts']
         pdd = pd.DataFrame({'holdername': holdername, 'counts': counts}, index=data.head(100).index)
         return pdd
         # print(pdd)
