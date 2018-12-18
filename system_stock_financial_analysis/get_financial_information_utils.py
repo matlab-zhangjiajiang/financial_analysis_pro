@@ -54,25 +54,31 @@ class get_financial_infor_utils(object):
           database_data = renames.rename_list_utils().rename_current_finance_utils(database_data)
           return database_data
 
-
-      def get_current_target_by_thread_fun(self,name):
-          data = self.get_single_financial_resource(name)
-          currentdate = name[4:len(name) - 4]
-          filterdata = data.loc[data.index == self.code, self.columnlist].drop_duplicates()
-          if (filterdata.empty != True):
-              # filterdata['date'] = currentdate
-              filterdata.index = [currentdate]
-              filterdata['year'] = [currentdate]
-              print(filterdata)
+      #按季度查询当前所有的财报数据
+      def get_current_time_finance_research_report(self,time):
+          filename = 'gpcw'+time+'.zip'
+          data = self.get_single_financial_resource(filename)
+          print(data)
 
 
-      def get_current_target_by_thread(self):
-          dowllist = self.get_all_financial_list_utils()
-          downroad = list(dowllist['filename'])
-          pool = tp.ThreadPool(30)
-          requests = tp.makeRequests(self.get_current_target_by_thread_fun, downroad)
-          [pool.putRequest(req) for req in requests]
-          pool.wait()
+      # def get_current_target_by_thread_fun(self,name):
+      #     data = self.get_single_financial_resource(name)
+      #     currentdate = name[4:len(name) - 4]
+      #     filterdata = data.loc[data.index == self.code, self.columnlist].drop_duplicates()
+      #     if (filterdata.empty != True):
+      #         # filterdata['date'] = currentdate
+      #         filterdata.index = [currentdate]
+      #         filterdata['year'] = [currentdate]
+      #         print(filterdata)
+      #
+      #
+      # def get_current_target_by_thread(self):
+      #     dowllist = self.get_all_financial_list_utils()
+      #     downroad = list(dowllist['filename'])
+      #     pool = tp.ThreadPool(30)
+      #     requests = tp.makeRequests(self.get_current_target_by_thread_fun, downroad)
+      #     [pool.putRequest(req) for req in requests]
+      #     pool.wait()
 
 
       def get_current_target(self):
@@ -100,8 +106,11 @@ class get_financial_infor_utils(object):
 
 
 if __name__ == '__main__':
-     #all_financial_infor_utils().get_all_financial_resource()
+     data = get_financial_infor_utils('',[]).get_current_time_finance_research_report('20180930')
+     print(data)
+
      #all_financial_infor_utils().get_single_financial_resource('gpcw20180930.zip')
-     code = '001696'
-     columnlist= ['EPS','ROE','turnoverRatioOfInventory','currentRatio','numberOfShareholders','daysSalesOfInventory']
-     get_financial_infor_utils(code,columnlist).get_current_target()
+
+     #code = '001696'
+     #columnlist= ['EPS','ROE','turnoverRatioOfInventory','currentRatio','numberOfShareholders','daysSalesOfInventory']
+     #get_financial_infor_utils(code,columnlist).get_current_target()
