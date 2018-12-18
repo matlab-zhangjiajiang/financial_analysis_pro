@@ -4,11 +4,9 @@ import sys
 from finance_stock_dao_model.exchange_stock_notice_infor_dto import exchange_stock_notice_infor_dto as dto
 from finance_common_utils.mysql_dbutils import sqlalchemy_dbutils as dbmanager
 from finance_news_report_research import exchange_stock_notice as spidernews
+from finance_news_report_research import notice_research_constant as constant
 reload(sys)
 sys.setdefaultencoding('utf-8') #设置系统运行编码
-
-good_url="E:\\GitHub\\financial_analysis_pro\\finance_news_report_research\\good_dict.txt"
-bad_url="E:\\GitHub\\financial_analysis_pro\\finance_news_report_research\\bad_dict.txt"
 
 class stock_news_research_utils(object):
 
@@ -75,5 +73,6 @@ class stock_news_research_utils(object):
 
 if __name__ == '__main__':
     spidernotices = spidernews.exchange_stock_notice_manager().get_announcement_all()
-    stock_news_research_utils(spidernotices).study_stock_notice_news(bad_url)
-    stock_news_research_utils(spidernotices).select_current_news_stock(bad_url,0)
+    constantdict = constant.notice_research_constant()
+    stock_news_research_utils(spidernotices).study_stock_notice_news(constantdict.BAD_DICT_ADDRESS)
+    stock_news_research_utils(spidernotices).select_current_news_stock(constantdict.BAD_DICT_ADDRESS,constantdict.BAD_NEWS_FLAG)

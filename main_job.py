@@ -7,14 +7,15 @@ from finance_stock_tushare_utils.stock_large_holders_data import holdlers_change
 from finance_news_report_research import exchange_stock_notice as remanager
 from finance_news_report_research import stock_news_research_utils as newsmanager
 from finance_stock_tushare_utils.stock_money_flow_data import stock_money_flow_initdata as flowdata
+from finance_news_report_research import notice_research_constant as constant
 
 sched = BlockingScheduler()
 import sys
 reload(sys)
 sys.setdefaultencoding('utf-8')
 
-#表示从星期一到星期五下午17:30（AM）直到2089-04-24 00:00:00
-@sched.scheduled_job('cron',day_of_week='mon-fri', hour=17, minute=30,end_date='2089-04-24')
+#表示从星期一到星期五下午19:30（AM）直到2089-04-24 00:00:00
+@sched.scheduled_job('cron',day_of_week='mon-fri', hour=19, minute=30,end_date='2089-04-24')
 def format_pe_job():
     plate = bigplate.init_bigplate_infor()
     plate.init_basic_stock_infor()
@@ -41,15 +42,14 @@ def init_stock_money_flow_data_job():
 def news_report_research_job():
     jobone = remanager.exchange_stock_notice_manager()
     spidernotices = jobone.get_announcement_all()
+    constantdict = constant.notice_research_constant()
     jobtwo = newsmanager.stock_news_research_utils(spidernotices)
-    good_url = "E:\\GitHub\\financial_analysis_pro\\finance_news_report_research\\good_dict.txt"
-    bad_url = "E:\\GitHub\\financial_analysis_pro\\finance_news_report_research\\bad_dict.txt"
     ##利好消息
-    jobtwo.study_stock_notice_news(good_url)
-    jobtwo.select_current_news_stock(good_url,0)
+    jobtwo.study_stock_notice_news(constantdict.GOOD_DICT_ADDRESS)
+    jobtwo.select_current_news_stock(constantdict.GOOD_DICT_ADDRESS,constantdict.GOOD_NEWS_FLAG)
     ##利空消息
-    jobtwo.study_stock_notice_news(bad_url)
-    jobtwo.select_current_news_stock(bad_url, 1)
+    jobtwo.study_stock_notice_news(constantdict.BAD_DICT_ADDRESS)
+    jobtwo.select_current_news_stock(constantdict.BAD_DICT_ADDRESS, constantdict.BAD_NEWS_FLAG)
 
 
 
