@@ -20,7 +20,7 @@ api = TdxHq_API()
 pd.set_option('display.max_columns',None,'precision',5)
 
 
-class all_financial_infor_utils(object):
+class get_financial_infor_utils(object):
 
       returnfilterdata =[]
 
@@ -104,4 +104,4 @@ if __name__ == '__main__':
      #all_financial_infor_utils().get_single_financial_resource('gpcw20180930.zip')
      code = '001696'
      columnlist= ['EPS','ROE','turnoverRatioOfInventory','currentRatio','numberOfShareholders','daysSalesOfInventory']
-     all_financial_infor_utils(code,columnlist).get_current_target()
+     get_financial_infor_utils(code,columnlist).get_current_target()
