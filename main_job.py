@@ -46,10 +46,10 @@ def news_report_research_job():
     bad_url = "E:\\GitHub\\financial_analysis_pro\\finance_news_report_research\\bad_dict.txt"
     ##利好消息
     jobtwo.study_stock_notice_news(good_url)
-    jobtwo.select_good_news_stock(good_url,0)
+    jobtwo.select_current_news_stock(good_url,0)
     ##利空消息
     jobtwo.study_stock_notice_news(bad_url)
-    jobtwo.select_good_news_stock(bad_url, 1)
+    jobtwo.select_current_news_stock(bad_url, 1)
 
 
 
