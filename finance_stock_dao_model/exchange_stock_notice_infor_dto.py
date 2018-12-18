@@ -6,10 +6,11 @@ Base = declarative_base()
 
 class exchange_stock_notice_infor_dto(Base):
 
-    __tablename__ = 'finance_system_stock_good_notice_infor'
+    __tablename__ = 'finance_system_stock_notice_infor_data'
 
     stock_code = Column(String(32))
     info_url = Column(String(150))
     info_title = Column(String(200),primary_key=True)
     key_time = Column(DateTime)
+    news_flag = Column(Integer())
 

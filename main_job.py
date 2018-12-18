@@ -42,9 +42,14 @@ def news_report_research_job():
     jobone = remanager.exchange_stock_notice_manager()
     spidernotices = jobone.get_announcement_all()
     jobtwo = newsmanager.stock_news_research_utils(spidernotices)
-    jobtwo.study_stock_notice_news()
-    jobtwo.select_good_news_stock()
-
+    good_url = "E:\\GitHub\\financial_analysis_pro\\finance_news_report_research\\good_dict.txt"
+    bad_url = "E:\\GitHub\\financial_analysis_pro\\finance_news_report_research\\bad_dict.txt"
+    ##利好消息
+    jobtwo.study_stock_notice_news(good_url)
+    jobtwo.select_good_news_stock(good_url,0)
+    ##利空消息
+    jobtwo.study_stock_notice_news(bad_url)
+    jobtwo.select_good_news_stock(bad_url, 1)
 
 
 

@@ -7,7 +7,8 @@ from finance_news_report_research import exchange_stock_notice as spidernews
 reload(sys)
 sys.setdefaultencoding('utf-8') #设置系统运行编码
 
-url="E:\\GitHub\\financial_analysis_pro\\finance_news_report_research\\good_dict.txt"
+good_url="E:\\GitHub\\financial_analysis_pro\\finance_news_report_research\\good_dict.txt"
+bad_url="E:\\GitHub\\financial_analysis_pro\\finance_news_report_research\\bad_dict.txt"
 
 class stock_news_research_utils(object):
 
@@ -15,7 +16,7 @@ class stock_news_research_utils(object):
       def __init__(self,spidernews):
           self.spidernews = spidernews
 
-      def study_current_dict(self,txt):
+      def study_current_dict(self,url,txt):
 
           ##读取本地的词根
           list =[]
@@ -42,13 +43,13 @@ class stock_news_research_utils(object):
               writefile.write('\n'+adddata)
 
 
-      def study_stock_notice_news(self):
+      def study_stock_notice_news(self,url):
           obj = stock_news_research_utils(self.spidernews)
           for newsreport in self.spidernews:
-              obj.study_current_dict(newsreport.info_title)
+              obj.study_current_dict(url,newsreport.info_title)
 
 
-      def select_good_news_stock(self):
+      def select_current_news_stock(self,url,newsflag):
           ##读取本地的词根
           list = []
           file = open(url, 'r')
@@ -61,6 +62,7 @@ class stock_news_research_utils(object):
           obj = stock_news_research_utils(self.spidernews)
           for newsreport in self.spidernews:
               infotitle = newsreport.info_title
+              newsreport.news_flag = newsflag
               forflag = False
               for goodflag in list:
                   if infotitle.find(goodflag) != -1:
@@ -70,7 +72,8 @@ class stock_news_research_utils(object):
                   dbmanager.sql_manager().single_common_save_basedata(newsreport)
 
 
+
 if __name__ == '__main__':
     spidernotices = spidernews.exchange_stock_notice_manager().get_announcement_all()
-    stock_news_research_utils(spidernotices).study_stock_notice_news()
-    stock_news_research_utils(spidernotices).select_good_news_stock()
+    stock_news_research_utils(spidernotices).study_stock_notice_news(bad_url)
+    stock_news_research_utils(spidernotices).select_current_news_stock(bad_url,0)
