@@ -19,11 +19,6 @@ pd.set_option('display.max_columns',None,'precision',5)
 
 class get_financial_infor_utils(object):
 
-      returnfilterdata =[]
-
-      def __init__(self,code,columnlist):
-          self.code = code
-          self.columnlist = columnlist
 
 
       def get_all_financial_list_utils(self):
@@ -51,24 +46,31 @@ class get_financial_infor_utils(object):
           database_data = renames.rename_list_utils().rename_current_finance_utils(database_data)
           return database_data
 
+
       #按季度查询当前所有的财报数据
       def get_current_time_finance_research_report(self,time):
           filename = 'gpcw'+time+'.zip'
           data = self.get_single_financial_resource(filename)
 
-          return data
+          return data.sort_values(['numberOfShareholders'],ascending=[True]).head(200)
 
 
-      def get_current_target(self):
+      #保存所有的pandas基础信息.
+      def save_current_data_information(self,all_data_pandas):
+          engine = dbmanager.sql_manager().init_engine()
+          pd.io.sql.to_sql(all_data_pandas, 'finance_system_stock_financial_analysis_data', con=engine,
+                           if_exists='replace', index=False, chunksize=1000)
+
+
+      def get_current_target(self,code,columnlist):
           dowllist = self.get_all_financial_list_utils()
           downroad = list(dowllist['filename'])
-          engine = dbmanager.sql_manager().init_engine()
           all_data_pandas = None
           i=0
           for name in downroad:
               data = self.get_single_financial_resource(name)
               currentdate = name[4:len(name)-4]
-              filterdata = data.loc[data.index==self.code,self.columnlist].drop_duplicates()
+              filterdata = data.loc[data.index==code,columnlist].drop_duplicates()
               if (filterdata.empty != True):
                   #filterdata['date'] = currentdate
                   filterdata.index = [currentdate]
@@ -78,13 +80,14 @@ class get_financial_infor_utils(object):
                   else:
                       all_data_pandas = pd.concat([all_data_pandas, filterdata])
               i +=1
-          print(all_data_pandas)
-          pd.io.sql.to_sql(all_data_pandas, 'finance_system_stock_financial_analysis_data', con=engine,
-                           if_exists='replace', index=False, chunksize=1000)
+          self.save_current_data_information(all_data_pandas)
+
 
 
 if __name__ == '__main__':
-     data = get_financial_infor_utils('',[]).get_current_time_finance_research_report('20180930')
+     obj = get_financial_infor_utils()
+     data = obj.get_current_time_finance_research_report('20180930')
+     #obj.save_current_data_information(data)
      print(data)
 
      #all_financial_infor_utils().get_single_financial_resource('gpcw20180930.zip')
