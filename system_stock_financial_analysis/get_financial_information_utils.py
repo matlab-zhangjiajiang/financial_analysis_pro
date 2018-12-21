@@ -1,15 +1,12 @@
 #coding=utf-8
 from pytdx.hq import TdxHq_API
 import pandas as pd
-import threadpool as tp
-from pytdx.params import TDXParams
-from finance_stock_pytdx_utils.connection_host_server import connection_host_server as serviceinfo
 from pytdx.crawler.history_financial_crawler import HistoryFinancialListCrawler
 from pytdx.crawler.history_financial_crawler import HistoryFinancialCrawler
 from pytdx.reader import HistoryFinancialReader
 from pytdx.crawler.base_crawler import demo_reporthook
 from finance_common_utils.mysql_dbutils import sqlalchemy_dbutils as dbmanager
-from finance_stock_pytdx_utils import rename_list_utils as renames
+from system_stock_financial_analysis import get_financial_rename_list_utils as renames
 import os
 
 #系统属性设置.
@@ -58,27 +55,8 @@ class get_financial_infor_utils(object):
       def get_current_time_finance_research_report(self,time):
           filename = 'gpcw'+time+'.zip'
           data = self.get_single_financial_resource(filename)
-          print(data)
 
-
-      # def get_current_target_by_thread_fun(self,name):
-      #     data = self.get_single_financial_resource(name)
-      #     currentdate = name[4:len(name) - 4]
-      #     filterdata = data.loc[data.index == self.code, self.columnlist].drop_duplicates()
-      #     if (filterdata.empty != True):
-      #         # filterdata['date'] = currentdate
-      #         filterdata.index = [currentdate]
-      #         filterdata['year'] = [currentdate]
-      #         print(filterdata)
-      #
-      #
-      # def get_current_target_by_thread(self):
-      #     dowllist = self.get_all_financial_list_utils()
-      #     downroad = list(dowllist['filename'])
-      #     pool = tp.ThreadPool(30)
-      #     requests = tp.makeRequests(self.get_current_target_by_thread_fun, downroad)
-      #     [pool.putRequest(req) for req in requests]
-      #     pool.wait()
+          return data
 
 
       def get_current_target(self):
@@ -112,5 +90,5 @@ if __name__ == '__main__':
      #all_financial_infor_utils().get_single_financial_resource('gpcw20180930.zip')
 
      #code = '001696'
-     #columnlist= ['EPS','ROE','turnoverRatioOfInventory','currentRatio','numberOfShareholders','daysSalesOfInventory']
+     #columnlist= ['EPS','ROE','turnoverRatioOfInventory','currentRatio','numberOfShareholders','accountsReceivables']
      #get_financial_infor_utils(code,columnlist).get_current_target()

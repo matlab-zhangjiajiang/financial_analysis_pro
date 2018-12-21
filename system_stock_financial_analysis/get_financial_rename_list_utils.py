@@ -255,7 +255,7 @@ class rename_list_utils(object):
                             'col236': 'netCashFlowsFromFinancingActivitiesSingle',
                             'col237': 'netIncreaseInCashAndCashEquivalentsSingle',
 
-                            #--股本股东
+                            #--
                             'col238': 'totalCapital',
                             'col239': 'listedAShares',
                             'col240': 'listedBShares',
@@ -263,5 +263,35 @@ class rename_list_utils(object):
                             'col242': 'numberOfShareholders',
                             'col243': 'theNumberOfFirstMajorityShareholder',
                             'col244': 'totalNumberOfTopTenCirculationShareholders',
-                            'col245': 'totalNumberOfTopTenMajorShareholders'},inplace=True)
+                            'col245': 'totalNumberOfTopTenMajorShareholders',
+
+                            #--
+                            'col246': 'institutionNumber',
+                            'col247': 'institutionShareholding',
+                            'col248': 'QFIIInstitutionNumber',
+                            'col249': 'QFIIShareholding',
+                            'col250': 'brokerNumber',
+                            'col251': 'brokerShareholding',
+                            'col252': 'securityNumber',
+                            'col253': 'securityShareholding',
+                            'col254': 'fundsNumber',
+                            'col255': 'fundsShareholding',
+                            'col256': 'socialSecurityNumber',
+                            'col257': 'socialSecurityShareholding',
+                            'col258': 'privateEquityNumber',
+                            'col259': 'privateEquityShareholding',
+                            'col260': 'financialCompanyNumber',
+                            'col261': 'financialCompanyShareholding',
+                            'col262': 'pensionInsuranceAgencyNumber',
+                            'col263': 'pensionInsuranceAgencyShareholfing',
+
+                            #--ADD
+                            'col264': 'totalNumberOfTopTenCirculationShareholders',
+                            'col265': 'firstLargeCirculationShareholdersNumber',
+                            'col266': 'freeCirculationStock',
+                            'col267': 'limitedCirculationAShares',
+                            'col268': 'generalRiskPreparation',
+                            'col269': 'otherComprehensiveIncome',
+                            'col270': 'totalComprehensiveIncome',
+                            'col271': 'shareholdersOwnershipOfAParentCompany'},inplace=True)
         return pds
