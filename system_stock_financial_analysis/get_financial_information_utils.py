@@ -85,13 +85,13 @@ class get_financial_infor_utils(object):
 
 
 if __name__ == '__main__':
-     obj = get_financial_infor_utils()
-     data = obj.get_current_time_finance_research_report('20180930')
+     #obj = get_financial_infor_utils()
+     #data = obj.get_current_time_finance_research_report('20180930')
      #obj.save_current_data_information(data)
-     print(data)
+     #print(data)
 
      #all_financial_infor_utils().get_single_financial_resource('gpcw20180930.zip')
 
-     #code = '001696'
-     #columnlist= ['EPS','ROE','turnoverRatioOfInventory','currentRatio','numberOfShareholders','accountsReceivables']
-     #get_financial_infor_utils(code,columnlist).get_current_target()
+     code = '600079'
+     columnlist= ['EPS','ROE','turnoverRatioOfInventory','currentRatio','numberOfShareholders','accountsReceivables']
+     get_financial_infor_utils().get_current_target(code,columnlist)
