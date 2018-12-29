@@ -94,5 +94,5 @@ if __name__ == '__main__':
 
      code = '001696'
      columnlist= ['EPS','ROE','turnoverRatioOfInventory','currentRatio','numberOfShareholders','accountsReceivables','daysSalesOutstanding','cashRatio',
-                  'goodwill','totalOwnersEquity']
+                  'goodwill','netProfit']
      get_financial_infor_utils().get_current_target(code,columnlist)
