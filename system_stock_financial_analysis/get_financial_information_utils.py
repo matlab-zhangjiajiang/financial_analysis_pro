@@ -3,7 +3,7 @@ from pytdx.hq import TdxHq_API
 import pandas as pd
 from pytdx.crawler.history_financial_crawler import HistoryFinancialListCrawler
 from pytdx.crawler.history_financial_crawler import HistoryFinancialCrawler
-from pytdx.reader import HistoryFinancialReader
+from pytdx.reader.history_financial_reader import HistoryFinancialReader
 from pytdx.crawler.base_crawler import demo_reporthook
 from finance_common_utils.mysql_dbutils import sqlalchemy_dbutils as dbmanager
 from system_stock_financial_analysis import get_financial_rename_list_utils as renames
