@@ -22,7 +22,6 @@ class sql_manager(object):
         try:
             session.commit()
         except Exception as error:
-            print("执行保存信息出错!"+error.message)
             session.rollback()
         session.close()
 

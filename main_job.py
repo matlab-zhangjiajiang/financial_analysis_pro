@@ -6,8 +6,10 @@ from finance_stock_tushare_utils.stock_basic_data import init_current_bigplate_i
 from finance_stock_tushare_utils.stock_large_holders_data import holdlers_change_data as holderchange
 from finance_news_report_research import exchange_stock_notice as remanager
 from finance_news_report_research import stock_news_research_utils as newsmanager
+from finance_news_report_research import spider_wallstreetcn_news_utils as wallmaneger
 from finance_stock_tushare_utils.stock_money_flow_data import stock_money_flow_initdata as flowdata
 from finance_news_report_research import notice_research_constant as constant
+
 
 sched = BlockingScheduler()
 import sys
@@ -35,6 +37,14 @@ def holders_across_holdes_job():
 def init_stock_money_flow_data_job():
     flowdatajob = flowdata.stock_money_flow_data()
     flowdatajob.init_money_flow_data()
+
+
+#新闻及时爬取
+@sched.scheduled_job('interval', seconds=300)
+def init_current_stock_news_data():
+    wallmaneger.daily_wallstreetcn_spider()
+
+
 
 
 #[公告信息]---->有利
