@@ -9,3 +9,5 @@ class notice_research_constant(object):
       GOOD_NEWS_FLAG = 1
 
       BAD_NEWS_FLAG = 0
+
+      NEWS_PLATFORM={'wallstreetcn':'WALLSTREETCN'}
