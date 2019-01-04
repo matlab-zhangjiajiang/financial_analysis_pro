@@ -5,7 +5,7 @@ import re
 import lxml.html
 from lxml import etree
 from random import randint
-from datetime import datetime
+from datetime import datetimereplace_line_terminator
 import pandas as pd
 
 LATEST_COLS = ['title', 'time', 'url']
@@ -117,6 +117,7 @@ def get_sohu_latest_news(template_url, top=80, show_content=False):
         url = template_url.format(top)
         request = urllib2.Request(url)
         data_str = urllib2.urlopen(request, timeout=10).read()
+        print(data_str)
         data_str = data_str.decode('utf-8')
         data_str = data_str[1:-1]
         data_str = eval(data_str, type('Dummy', (dict,), dict(__getitem__=lambda s, n: n))())
