@@ -43,8 +43,9 @@ def init_stock_money_flow_data_job():
 @sched.scheduled_job('interval', seconds=480)
 def init_current_stock_news_data():
     webmaneger.daily_wallstreetcn_spider()
-    webmaneger.daily_yuncaijing_spider()
     webmaneger.daily_tonghuasun_spider()
+    webmaneger.daily_yuncaijing_spider()
+
 
 
 
