@@ -30,17 +30,20 @@ def daily_wallstreetcn_spider():
 
 
 def daily_yuncaijing_spider():
-    chrome_options = Options()
-    chrome_options.add_argument('--headless')
-    driver = webdriver.Chrome(chrome_options=chrome_options)
-    driver.get(NEWS_URL['yuncaijing'])
-    contents = driver.find_element_by_class_name("news-ul").find_elements_by_tag_name("li")
-    for vo in contents:
-        index_date = vo.find_element_by_class_name("time").text
-        href = vo.find_element_by_class_name("nc-arc-wrap").find_element_by_tag_name("a").get_attribute("href")
-        text =vo.find_element_by_class_name("nc-arc-wrap").find_element_by_class_name("des").text
-        infor = utils.replace_special_character(text)
-        save_current_news('yuncaijing',index_date,href,infor)
+    try:
+        chrome_options = Options()
+        chrome_options.add_argument('--headless')
+        driver = webdriver.Chrome(chrome_options=chrome_options)
+        driver.get(NEWS_URL['yuncaijing'])
+        contents = driver.find_element_by_class_name("news-ul").find_elements_by_tag_name("li")
+        for vo in contents:
+           index_date = vo.find_element_by_class_name("time").text
+           href = vo.find_element_by_class_name("nc-arc-wrap").find_element_by_tag_name("a").get_attribute("href")
+           text =vo.find_element_by_class_name("nc-arc-wrap").find_element_by_class_name("des").text
+           infor = utils.replace_special_character(text)
+           save_current_news('yuncaijing',index_date,href,infor)
+    except Exception as error:
+        print('spider error',error)
 
 
 def daily_tonghuasun_spider():
