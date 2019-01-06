@@ -4,7 +4,7 @@ import time
 from apscheduler.schedulers.blocking import BlockingScheduler
 from finance_stock_tushare_utils.stock_basic_data import init_current_bigplate_infor as bigplate
 from finance_stock_tushare_utils.stock_large_holders_data import holdlers_change_data as holderchange
-from finance_news_report_analysis import exchange_stock_notice as remanager
+from finance_news_report_analysis import spider_stock_notice as remanager
 from finance_news_report_analysis import stock_news_research_utils as newsmanager
 from finance_news_report_analysis import spider_web_news_utils as webmaneger
 from finance_stock_tushare_utils.stock_money_flow_data import stock_money_flow_initdata as flowdata
