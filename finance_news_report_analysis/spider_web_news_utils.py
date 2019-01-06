@@ -9,9 +9,10 @@ from finance_news_report_analysis import notice_research_constant as constant
 import sys
 import uuid
 
-NEWS_PLATFORM = {'wallstreetcn': 'WALLSTREETCN','yuncaijing':'YUNCAIJING'}
+NEWS_PLATFORM = {'wallstreetcn': 'WSC','yuncaijing':'YCJ','tonghuasun':'THS'}
 NEWS_URL={'wallstreetcn':'https://wallstreetcn.com/live/a-stock',
-          'yuncaijing':'https://www.yuncaijing.com/insider/main.html'}
+          'yuncaijing':'https://www.yuncaijing.com/insider/main.html',
+          'tonghuasun':'http://news.10jqka.com.cn/realtimenews.html'}
 
 
 
@@ -43,6 +44,21 @@ def daily_yuncaijing_spider():
         save_current_news('yuncaijing',index_date,href,infor)
 
 
+def daily_tonghuasun_spider():
+    chrome_options = Options()
+    chrome_options.add_argument('--headless')
+    driver = webdriver.Chrome(chrome_options=chrome_options)
+    driver.get(NEWS_URL['tonghuasun'])
+    contents = driver.find_elements_by_tag_name("ul").find_element_by_class_name(".newsText.all")
+    print(contents.text)
+    # for vo in contents:
+    #     index_date = vo.find_element_by_class_name("time").text
+    #     href = vo.find_element_by_class_name("nc-arc-wrap").find_element_by_tag_name("a").get_attribute("href")
+    #     text =vo.find_element_by_class_name("nc-arc-wrap").find_element_by_class_name("des").text
+    #     infor = utils.replace_special_character(text)
+        #save_current_news('tonghuasun',index_date,href,infor)
+
+
 def save_current_news(platform,index_date,href,infor):
     vodto = dto(index_date=index_date, href=href, context=infor,
                 create_time=datetime_utils.datetimeutils().get_current_datetime(),
@@ -51,4 +67,4 @@ def save_current_news(platform,index_date,href,infor):
 
 
 if __name__=='__main__':
-    daily_yuncaijing_spider()
+    daily_tonghuasun_spider()
