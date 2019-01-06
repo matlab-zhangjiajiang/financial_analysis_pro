@@ -5,7 +5,7 @@ import utils.spider_common_utils as utils
 from finance_common_utils.common_utils.datetime_model import datetime_utils
 import finance_common_utils.mysql_dbutils.sqlalchemy_dbutils as dbmanager
 from finance_stock_dao_model.stock_news_data_dto import stock_news_data_dto as dto
-from finance_news_report_research import notice_research_constant as constant
+from finance_news_report_analysis import notice_research_constant as constant
 import sys
 import uuid
 

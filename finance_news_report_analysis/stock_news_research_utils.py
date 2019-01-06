@@ -3,8 +3,8 @@ import jieba
 import sys
 from finance_stock_dao_model.exchange_stock_notice_infor_dto import exchange_stock_notice_infor_dto as dto
 from finance_common_utils.mysql_dbutils import sqlalchemy_dbutils as dbmanager
-from finance_news_report_research import exchange_stock_notice as spidernews
-from finance_news_report_research import notice_research_constant as constant
+from finance_news_report_analysis import exchange_stock_notice as spidernews
+from finance_news_report_analysis import notice_research_constant as constant
 reload(sys)
 sys.setdefaultencoding('utf-8') #设置系统运行编码
 
