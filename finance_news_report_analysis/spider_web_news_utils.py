@@ -5,7 +5,6 @@ import utils.spider_common_utils as utils
 from finance_common_utils.common_utils.datetime_model import datetime_utils
 import finance_common_utils.mysql_dbutils.sqlalchemy_dbutils as dbmanager
 from finance_stock_dao_model.stock_news_data_dto import stock_news_data_dto as dto
-from finance_news_report_analysis import notice_research_constant as constant
 import sys
 import uuid
 
@@ -49,14 +48,16 @@ def daily_tonghuasun_spider():
     chrome_options.add_argument('--headless')
     driver = webdriver.Chrome(chrome_options=chrome_options)
     driver.get(NEWS_URL['tonghuasun'])
-    contents = driver.find_elements_by_tag_name("ul").find_element_by_class_name(".newsText.all")
-    print(contents.text)
-    # for vo in contents:
-    #     index_date = vo.find_element_by_class_name("time").text
-    #     href = vo.find_element_by_class_name("nc-arc-wrap").find_element_by_tag_name("a").get_attribute("href")
-    #     text =vo.find_element_by_class_name("nc-arc-wrap").find_element_by_class_name("des").text
-    #     infor = utils.replace_special_character(text)
-        #save_current_news('tonghuasun',index_date,href,infor)
+    content = driver.find_element_by_css_selector("[class='newsText all']")
+    contents = content.find_elements_by_tag_name("li")
+    for vo in contents:
+         print(vo.get_attribute('class'))
+         if vo.get_attribute('class')!='beforeNewTime':
+            index_date = vo.find_element_by_class_name("newsTimer").text
+            href = vo.find_element_by_class_name("newsDetail").find_element_by_tag_name("a").get_attribute("href")
+            text = vo.find_element_by_class_name("newsDetail").find_element_by_tag_name("a").text
+            infor = utils.replace_special_character(text)
+            save_current_news('tonghuasun',index_date,href,infor)
 
 
 def save_current_news(platform,index_date,href,infor):
