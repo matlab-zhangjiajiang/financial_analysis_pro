@@ -3,8 +3,8 @@
 import os
 import pandas as pd
 from datetime import datetime
-from utils import news_crawler
-from utils import preprocessing
+from finance_news_report_analysis.utils import news_crawler
+from finance_news_report_analysis.utils import preprocessing
 
 # project_path = os.path.dirname(os.path.realpath(__file__))  # 获取项目路径
 # news_path = os.path.join(project_path, 'news')  # 新闻数据存放目录路径
