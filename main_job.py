@@ -48,8 +48,6 @@ def init_current_stock_news_data():
 
 
 
-
-
 #[公告信息]---->有利
 @sched.scheduled_job('interval', seconds=600)
 def news_report_research_job():
