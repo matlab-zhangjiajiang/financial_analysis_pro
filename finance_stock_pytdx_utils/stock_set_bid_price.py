@@ -4,10 +4,9 @@ from pytdx.params import TDXParams
 from finance_stock_dao_model import stock_infor_base_dto as basicvo
 from finance_stock_dao_model.stock_set_bid_base_dto import stock_set_bid_base_dto as dto
 from connection_host_server import connection_host_server as serviceinfo
-from finance_common_utils.common_utils.datetime_model import datetime_utils
+from finance_common_utils.common_utils import datetime_utils
 import finance_common_utils.mysql_dbutils.sqlalchemy_dbutils as dbmanager
 from finance_stock_dao_model.stock_set_bid_base_rate_dto import stock_set_bid_base_rate_dto as ratedto
-from finance_stock_tushare_utils.stock_basic_data.stock_pledge_infor import stock_pledge_infor as pledge
 import sys
 reload(sys)
 sys.setdefaultencoding('utf-8')
@@ -85,7 +84,7 @@ class stock_set_bid_price(object):
                                  #print('------->'+str(row.code) + ':' + str(row.name)+'----->执行查询出错')
          for row in listdata:
              currentdto = ratedto(code=row.code, name=row.name, industry=row.industry,
-                          createtime=datetime_utils.datetimeutils().get_current_time(),outstanding=row.outstanding)
+                                  createtime=datetime_utils.datetimeutils().get_current_time(), outstanding=row.outstanding)
              dbmanager.sql_manager().single_common_save_basedata(currentdto)
 
 if __name__ == '__main__':

@@ -1,12 +1,6 @@
 # coding=utf-8
-import tushare as tu
 import pandas as pd
 from finance_common_utils.mysql_dbutils import sqlalchemy_dbutils as dbmanager
-from decimal import Decimal
-import decimal
-from sqlalchemy import func
-import matplotlib.pyplot as plt
-from finance_common_utils.common_utils.datetime_model import datetime_utils as dateutils
 from finance_stock_dao_model.topten_holders_circulat_extdata_dto import topten_holders_circulat_extdata_dto as extdata
 
 class topten_holders_radio_object(object):

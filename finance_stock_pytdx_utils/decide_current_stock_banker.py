@@ -4,8 +4,6 @@ from pytdx.hq import TdxHq_API
 from pytdx.params import TDXParams
 from finance_stock_dao_model import stock_infor_base_dto as basicvo
 from connection_host_server import connection_host_server as serviceinfo
-from finance_common_utils.common_utils.datetime_model import datetime_utils
-import finance_common_utils.mysql_dbutils.sqlalchemy_dbutils as dbmanager
 import sys
 reload(sys)
 sys.setdefaultencoding('utf-8')

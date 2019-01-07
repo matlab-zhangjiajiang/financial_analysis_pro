@@ -1,8 +1,7 @@
 # coding=utf-8
 import tushare as tu
 import pandas as pd
-from finance_common_utils.common_utils.datetime_model import datetime_utils as dateutils
-from finance_common_utils.matplotlib_common_utils import histogram_common_utils as drawutils
+from finance_common_utils.common_utils import datetime_utils as dateutils
 from finance_common_utils.mysql_dbutils import sqlalchemy_dbutils as dbmanager
 
 #设置TOKEN

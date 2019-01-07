@@ -2,11 +2,9 @@
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 import utils.spider_common_utils as utils
-from finance_common_utils.common_utils.datetime_model import datetime_utils
+from finance_common_utils.common_utils import datetime_utils
 import finance_common_utils.mysql_dbutils.sqlalchemy_dbutils as dbmanager
 from finance_stock_dao_model.stock_news_data_dto import stock_news_data_dto as dto
-import sys
-import uuid
 
 NEWS_PLATFORM = {'wallstreetcn': 'WSC','yuncaijing':'YCJ','tonghuasun':'THS'}
 NEWS_URL={'wallstreetcn':'https://wallstreetcn.com/live/a-stock',
