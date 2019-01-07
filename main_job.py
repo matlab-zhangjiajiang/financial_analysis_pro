@@ -7,6 +7,7 @@ from finance_stock_tushare_utils.stock_large_holders_data import holdlers_change
 from finance_news_report_analysis import spider_stock_notice as remanager
 from finance_news_report_analysis import stock_news_research_utils as newsmanager
 from finance_news_report_analysis import spider_web_news_utils as webmaneger
+from finance_news_report_analysis import news_word_frequency_count as wordsearch
 from finance_stock_tushare_utils.stock_money_flow_data import stock_money_flow_initdata as flowdata
 from finance_news_report_analysis import notice_research_constant as constant
 
@@ -45,6 +46,8 @@ def init_current_stock_news_data():
     webmaneger.daily_wallstreetcn_spider()
     webmaneger.daily_tonghuasun_spider()
     webmaneger.daily_yuncaijing_spider()
+    #词频分析
+    wordsearch.words_frequency_count()
 
 
 

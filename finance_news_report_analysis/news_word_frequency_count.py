@@ -38,17 +38,18 @@ def words_frequency_count():
     list = []
     df = df[df.context.isnull() == False]
     for idx, row in df.iterrows():
-        context = utils.replace_spicial_symbol(row['context'])
+        context = row['context']
         word_list = jieba.analyse.extract_tags(context, topK=20, withWeight=True, allowPOS=('n','nr','ns'))
         for word in word_list:
             kv = word[0]
-            print(kv)
             if kv not in worddict:
                worddict[kv] = 1
             else:
                worddict[kv] = worddict[kv]+1
     result = pd.DataFrame({'key':[x for x in worddict.keys()],'value':[x for x in worddict.values()]}).sort_values(['value'],ascending=[False])
-
+    engine = dbmanager.sql_manager().init_engine()
+    pd.io.sql.to_sql(result, 'finance_system_news_word_frequency_data', con=engine, if_exists='replace', index=False,
+                 chunksize=1000)
 
 if __name__ == '__main__':
     words_frequency_count()
