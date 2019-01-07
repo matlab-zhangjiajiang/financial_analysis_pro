@@ -31,6 +31,7 @@ def words_frequency_count():
     for idx,row in basicdata.iterrows():
         jieba.add_word(row['name'])
         jieba.add_word(idx)
+
     conengine = dbmanager.sql_manager().init_engine()
     sql ='SELECT * FROM FINANCE_SYSTEM_STOCK_NEWS_DATA WHERE DATE(CREATE_TIME) = CURDATE()'
     df = pd.read_sql_query(sql,conengine)
@@ -38,14 +39,16 @@ def words_frequency_count():
     df = df[df.context.isnull() == False]
     for idx, row in df.iterrows():
         context = utils.replace_spicial_symbol(row['context'])
-        word_list = jieba.analyse.textrank(context, topK=20,withWeight=False,allowPOS=('ns', 'n', 'vn', 'v'))
+        word_list = jieba.analyse.extract_tags(context, topK=20, withWeight=True, allowPOS=('n','nr','ns'))
         for word in word_list:
-            if word not in worddict:
-               worddict[word] = 1
+            kv = word[0]
+            print(kv)
+            if kv not in worddict:
+               worddict[kv] = 1
             else:
-               worddict[word] = worddict[word]+1
+               worddict[kv] = worddict[kv]+1
     result = pd.DataFrame({'key':[x for x in worddict.keys()],'value':[x for x in worddict.values()]}).sort_values(['value'],ascending=[False])
-    print(result)
+
 
 if __name__ == '__main__':
     words_frequency_count()
