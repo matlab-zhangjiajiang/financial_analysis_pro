@@ -45,6 +45,7 @@ def init_stock_money_flow_data_job():
 def init_current_stock_news_data():
     webmaneger.daily_wallstreetcn_spider()
     webmaneger.daily_tonghuasun_spider()
+    webmaneger.daily_eastmoney_spider()
     webmaneger.daily_yuncaijing_spider()
     #词频分析
     wordsearch.words_frequency_count()

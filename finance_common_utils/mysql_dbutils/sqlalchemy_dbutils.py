@@ -22,6 +22,7 @@ class sql_manager(object):
         try:
             session.commit()
         except Exception as error:
+            print('commit error',error)
             session.rollback()
         session.close()
 

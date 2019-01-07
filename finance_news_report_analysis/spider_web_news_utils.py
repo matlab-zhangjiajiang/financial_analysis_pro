@@ -6,10 +6,11 @@ from finance_common_utils.common_utils import datetime_utils
 import finance_common_utils.mysql_dbutils.sqlalchemy_dbutils as dbmanager
 from finance_stock_dao_model.stock_news_data_dto import stock_news_data_dto as dto
 
-NEWS_PLATFORM = {'wallstreetcn': 'WSC','yuncaijing':'YCJ','tonghuasun':'THS'}
+NEWS_PLATFORM = {'wallstreetcn': 'WSC','yuncaijing':'YCJ','tonghuasun':'THS','eastmoney':'EM'}
 NEWS_URL={'wallstreetcn':'https://wallstreetcn.com/live/a-stock',
           'yuncaijing':'https://www.yuncaijing.com/insider/main.html',
-          'tonghuasun':'http://news.10jqka.com.cn/realtimenews.html'}
+          'tonghuasun':'http://news.10jqka.com.cn/realtimenews.html',
+          'eastmoney':'http://kuaixun.eastmoney.com'}
 
 
 
@@ -52,13 +53,34 @@ def daily_tonghuasun_spider():
     content = driver.find_element_by_css_selector("[class='newsText all']")
     contents = content.find_elements_by_tag_name("li")
     for vo in contents:
-         print(vo.get_attribute('class'))
          if vo.get_attribute('class')!='beforeNewTime':
             index_date = vo.find_element_by_class_name("newsTimer").text
             href = vo.find_element_by_class_name("newsDetail").find_element_by_tag_name("a").get_attribute("href")
             text = vo.find_element_by_class_name("newsDetail").find_element_by_tag_name("a").text
             infor = utils.replace_special_character(text)
             save_current_news('tonghuasun',index_date,href,infor)
+
+
+def daily_eastmoney_spider():
+    chrome_options = Options()
+    chrome_options.add_argument('--headless')
+    driver = webdriver.Chrome(chrome_options=chrome_options)
+    driver.get(NEWS_URL['eastmoney'])
+    content = driver.find_element_by_id("livenews-list")
+    contents = content.find_elements_by_class_name("livenews-media")
+    for vo in contents:
+        index_date = vo.find_element_by_class_name("time").text
+        flag = True
+        try:
+           href = vo.find_element_by_tag_name("a")
+        except Exception as error:
+            flag = False
+        if flag:
+           href = vo.find_element_by_tag_name("a").get_attribute("href")
+           text = vo.find_element_by_tag_name("a").text
+           infor = utils.replace_special_character(text)
+           save_current_news('eastmoney', index_date, href, infor)
+
 
 
 def save_current_news(platform,index_date,href,infor):
@@ -69,4 +91,4 @@ def save_current_news(platform,index_date,href,infor):
 
 
 if __name__=='__main__':
-    daily_tonghuasun_spider()
+    daily_eastmoney_spider()
