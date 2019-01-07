@@ -1,5 +1,6 @@
 #coding=utf-8
 import jieba
+import jieba.analyse
 import pandas as pd
 import tushare as tu
 from collections import Counter
@@ -37,7 +38,7 @@ def words_frequency_count():
     df = df[df.context.isnull() == False]
     for idx, row in df.iterrows():
         context = utils.replace_spicial_symbol(row['context'])
-        word_list = jieba.cut(context,cut_all=True)
+        word_list = jieba.analyse.textrank(context, topK=20,withWeight=False,allowPOS=('ns', 'n', 'vn', 'v'))
         for word in word_list:
             if word not in worddict:
                worddict[word] = 1
