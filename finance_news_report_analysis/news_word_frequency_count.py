@@ -3,6 +3,7 @@ import jieba
 import jieba.analyse
 import pandas as pd
 import tushare as tu
+import os
 from collections import Counter
 from finance_common_utils.mysql_dbutils import sqlalchemy_dbutils as dbmanager
 import utils.spider_common_utils as utils
@@ -14,7 +15,7 @@ blacklist = ['责任编辑', '一定','一年', '一起', '一项', '一点儿',
             '北京时间', '有没有', '新闻联播', '本台消息', '这个', '那个', '就是', '今天', '明天', '参加', '今年', '明天']
 
 #新增关键词
-stopwords = ['一带一路', '雄安新区', '区块链', '数字货币', '虚拟货币',  '比特币', '对冲基金', '自贸区', '自由贸易区','乡村振兴','美丽中国','共享经济','租购同权','新零售',
+stopwords_dict = ['一带一路', '雄安新区', '区块链', '数字货币', '虚拟货币',  '比特币', '对冲基金', '自贸区', '自由贸易区','乡村振兴','美丽中国','共享经济','租购同权','新零售',
              '共有产权房','楼市调控', '产权保护', '互联网金融', '5G', '4G', '国企改革', '大湾区', '长江经济带']
 
 
@@ -25,13 +26,28 @@ pro = tu.pro_api()
 
 def words_frequency_count():
     worddict={}
-    for word in stopwords:
+    stopwords=[]
+    for word in stopwords_dict:
         jieba.add_word(word)
+        stopwords.append(word)
+
     basicdata = tu.get_stock_basics()
     for idx,row in basicdata.iterrows():
         jieba.add_word(row['name'])
         jieba.add_word(idx)
+        stopwords.append(row['name'])
+        stopwords.append(idx)
 
+    project_path = os.path.dirname(os.path.realpath(__file__))
+    url = project_path+'\\main_word_dict.txt'
+    ##新的词义写入到当前的文档
+    writefile = open(url, 'a')
+    writefile.truncate()
+    writefile.write('国企改革')
+    for adddata in stopwords:
+        writefile.write('\n' + adddata)
+
+    jieba.analyse.set_stop_words(url)
     conengine = dbmanager.sql_manager().init_engine()
     sql ='SELECT * FROM FINANCE_SYSTEM_STOCK_NEWS_DATA WHERE DATE(CREATE_TIME) = CURDATE()'
     df = pd.read_sql_query(sql,conengine)
@@ -39,9 +55,8 @@ def words_frequency_count():
     df = df[df.context.isnull() == False]
     for idx, row in df.iterrows():
         context = row['context']
-        word_list = jieba.analyse.extract_tags(context, topK=20, withWeight=True, allowPOS=('n','nr','ns'))
-        for word in word_list:
-            kv = word[0]
+        word_list = jieba.analyse.extract_tags(context, topK=20, withWeight=False, allowPOS=('n','nr','ns'))
+        for kv in word_list:
             if kv not in worddict:
                worddict[kv] = 1
             else:
@@ -49,7 +64,7 @@ def words_frequency_count():
     result = pd.DataFrame({'key':[x for x in worddict.keys()],'value':[x for x in worddict.values()]}).sort_values(['value'],ascending=[False])
     engine = dbmanager.sql_manager().init_engine()
     pd.io.sql.to_sql(result, 'finance_system_news_word_frequency_data', con=engine, if_exists='replace', index=False,
-                 chunksize=1000)
+                  chunksize=1000)
 
 if __name__ == '__main__':
     words_frequency_count()
