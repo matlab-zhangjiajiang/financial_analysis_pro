@@ -39,32 +39,34 @@ def words_frequency_count():
         stopwords.append(idx)
 
     project_path = os.path.dirname(os.path.realpath(__file__))
-    url = project_path+'\\main_word_dict.txt'
+    url = project_path+'\\main_word_dict.txt.big'
+    stop_url = project_path+'\\stop_word_dict.txt'
     ##新的词义写入到当前的文档
     writefile = open(url, 'a')
-    writefile.truncate()
-    writefile.write('国企改革')
+    #writefile.truncate()
     for adddata in stopwords:
-        writefile.write('\n' + adddata)
+        print('---')
+        #writefile.write('\n' + adddata+' 10.642581114')
 
-    jieba.analyse.set_stop_words(url)
+    jieba.analyse.set_stop_words(stop_url)
+    #jieba.analyse.set_idf_path(url)
     conengine = dbmanager.sql_manager().init_engine()
     sql ='SELECT * FROM FINANCE_SYSTEM_STOCK_NEWS_DATA WHERE DATE(CREATE_TIME) = CURDATE()'
     df = pd.read_sql_query(sql,conengine)
-    list = []
     df = df[df.context.isnull() == False]
     for idx, row in df.iterrows():
         context = row['context']
-        word_list = jieba.analyse.extract_tags(context, topK=20, withWeight=False, allowPOS=('n','nr','ns'))
+        word_list = jieba.analyse.extract_tags(context, topK=100, withWeight=False, allowPOS=('n','nr','ns'))
         for kv in word_list:
             if kv not in worddict:
                worddict[kv] = 1
             else:
                worddict[kv] = worddict[kv]+1
     result = pd.DataFrame({'key':[x for x in worddict.keys()],'value':[x for x in worddict.values()]}).sort_values(['value'],ascending=[False])
-    engine = dbmanager.sql_manager().init_engine()
-    pd.io.sql.to_sql(result, 'finance_system_news_word_frequency_data', con=engine, if_exists='replace', index=False,
-                  chunksize=1000)
+    print(result)
+    #engine = dbmanager.sql_manager().init_engine()
+    #pd.io.sql.to_sql(result, 'finance_system_news_word_frequency_data', con=engine, if_exists='replace', index=False,
+    #             chunksize=1000)
 
 if __name__ == '__main__':
     words_frequency_count()
