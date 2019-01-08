@@ -42,9 +42,8 @@ def words_frequency_count():
     url = project_path+'\\main_word_dict.txt.big'
     stop_url = project_path+'\\stop_word_dict.txt'
 
-
     jieba.analyse.set_stop_words(stop_url)
-    #jieba.analyse.set_idf_path(url)
+    jieba.analyse.set_idf_path(url)
     conengine = dbmanager.sql_manager().init_engine()
     sql ='SELECT * FROM FINANCE_SYSTEM_STOCK_NEWS_DATA WHERE DATE(CREATE_TIME) = CURDATE()'
     df = pd.read_sql_query(sql,conengine)
