@@ -45,8 +45,7 @@ def words_frequency_count():
     writefile = open(url, 'a')
     #writefile.truncate()
     for adddata in stopwords:
-        print('---')
-        #writefile.write('\n' + adddata+' 10.642581114')
+        writefile.write('\n' + adddata+' 11.598092559')
 
     jieba.analyse.set_stop_words(stop_url)
     #jieba.analyse.set_idf_path(url)
