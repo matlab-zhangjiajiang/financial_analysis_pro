@@ -41,11 +41,7 @@ def words_frequency_count():
     project_path = os.path.dirname(os.path.realpath(__file__))
     url = project_path+'\\main_word_dict.txt.big'
     stop_url = project_path+'\\stop_word_dict.txt'
-    ##新的词义写入到当前的文档
-    writefile = open(url, 'a')
-    #writefile.truncate()
-    for adddata in stopwords:
-        writefile.write('\n' + adddata+' 11.598092559')
+
 
     jieba.analyse.set_stop_words(stop_url)
     #jieba.analyse.set_idf_path(url)
@@ -62,10 +58,16 @@ def words_frequency_count():
             else:
                worddict[kv] = worddict[kv]+1
     result = pd.DataFrame({'key':[x for x in worddict.keys()],'value':[x for x in worddict.values()]}).sort_values(['value'],ascending=[False])
-    print(result)
-    #engine = dbmanager.sql_manager().init_engine()
-    #pd.io.sql.to_sql(result, 'finance_system_news_word_frequency_data', con=engine, if_exists='replace', index=False,
-    #             chunksize=1000)
+    engine = dbmanager.sql_manager().init_engine()
+    pd.io.sql.to_sql(result, 'finance_system_news_word_frequency_data', con=engine, if_exists='replace', index=False,
+                 chunksize=1000)
+
+def update_idf_dicttext(url,stopwords):
+    ##新的词义写入到当前的文档
+    writefile = open(url, 'a')
+    writefile.truncate()
+    for adddata in stopwords:
+        writefile.write('\n' + adddata+' 11.598092559')
 
 if __name__ == '__main__':
     words_frequency_count()
