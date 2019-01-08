@@ -26,13 +26,14 @@ def daily_wallstreetcn_spider():
         index_date = vo.find_element_by_class_name("live-item_created").text
         href = vo.find_element_by_tag_name("a").get_attribute("href")
         save_current_news('wallstreetcn',index_date,href,infor)
+    driver.quit()
 
 
 def daily_yuncaijing_spider():
+    chrome_options = Options()
+    chrome_options.add_argument('--headless')
+    driver = webdriver.Chrome(chrome_options=chrome_options)
     try:
-        chrome_options = Options()
-        chrome_options.add_argument('--headless')
-        driver = webdriver.Chrome(chrome_options=chrome_options)
         driver.get(NEWS_URL['yuncaijing'])
         contents = driver.find_element_by_class_name("news-ul").find_elements_by_tag_name("li")
         for vo in contents:
@@ -43,6 +44,8 @@ def daily_yuncaijing_spider():
            save_current_news('yuncaijing',index_date,href,infor)
     except Exception as error:
         print('spider error',error)
+    finally:
+        driver.quit()
 
 
 def daily_tonghuasun_spider():
@@ -59,27 +62,33 @@ def daily_tonghuasun_spider():
             text = vo.find_element_by_class_name("newsDetail").find_element_by_tag_name("a").text
             infor = utils.replace_special_character(text)
             save_current_news('tonghuasun',index_date,href,infor)
+    driver.quit()
 
 
 def daily_eastmoney_spider():
     chrome_options = Options()
     chrome_options.add_argument('--headless')
     driver = webdriver.Chrome(chrome_options=chrome_options)
-    driver.get(NEWS_URL['eastmoney'])
-    content = driver.find_element_by_id("livenews-list")
-    contents = content.find_elements_by_class_name("livenews-media")
-    for vo in contents:
-        index_date = vo.find_element_by_class_name("time").text
-        flag = True
-        try:
-           href = vo.find_element_by_tag_name("a")
-        except Exception as error:
-            flag = False
-        if flag:
-           href = vo.find_element_by_tag_name("a").get_attribute("href")
-           text = vo.find_element_by_tag_name("a").text
-           infor = utils.replace_special_character(text)
-           save_current_news('eastmoney', index_date, href, infor)
+    try:
+       driver.get(NEWS_URL['eastmoney'])
+       content = driver.find_element_by_id("livenews-list")
+       contents = content.find_elements_by_class_name("livenews-media")
+       for vo in contents:
+           index_date = vo.find_element_by_class_name("time").text
+           flag = True
+           try:
+              href = vo.find_element_by_tag_name("a")
+           except Exception as error:
+              flag = False
+           if flag:
+              href = vo.find_element_by_tag_name("a").get_attribute("href")
+              text = vo.find_element_by_tag_name("a").text
+              infor = utils.replace_special_character(text)
+              save_current_news('eastmoney', index_date, href, infor)
+    except Exception as error:
+        print('spider error',error)
+    finally:
+        driver.quit()
 
 
 
