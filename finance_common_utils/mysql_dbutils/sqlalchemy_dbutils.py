@@ -7,7 +7,7 @@ class sql_manager(object):
 
     def init_engine(self):
         try:
-            return create_engine('mysql://root:yougou@127.0.0.1/finance_db?charset=utf8',echo=True)
+            return create_engine('mysql://root:yougou@10.0.120.132/finance_db?charset=utf8',echo=True)
         except Exception as error:
             print("open connection database catch Error.", error)
 
