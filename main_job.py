@@ -53,6 +53,10 @@ def init_current_stock_news_data():
     stockwordsearch.words_frequency_count()
 
 
+@sched.scheduled_job('interval', seconds=120)
+def crawl_sina_news_data_job():
+    webmaneger.daily_sina_spider()
+
 
 #[公告信息]---->有利
 @sched.scheduled_job('interval', seconds=600)

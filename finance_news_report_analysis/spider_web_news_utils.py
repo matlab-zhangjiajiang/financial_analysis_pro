@@ -6,11 +6,12 @@ from finance_common_utils.common_utils import datetime_utils
 import finance_common_utils.mysql_dbutils.sqlalchemy_dbutils as dbmanager
 from finance_stock_dao_model.stock_news_data_dto import stock_news_data_dto as dto
 
-NEWS_PLATFORM = {'wallstreetcn': 'WSC','yuncaijing':'YCJ','tonghuasun':'THS','eastmoney':'EM'}
+NEWS_PLATFORM = {'wallstreetcn': 'WSC','yuncaijing':'YCJ','tonghuasun':'THS','eastmoney':'EM','sina':'SA'}
 NEWS_URL={'wallstreetcn':'https://wallstreetcn.com/live/a-stock',
           'yuncaijing':'https://www.yuncaijing.com/insider/main.html',
           'tonghuasun':'http://news.10jqka.com.cn/realtimenews.html',
-          'eastmoney':'http://kuaixun.eastmoney.com'}
+          'eastmoney':'http://kuaixun.eastmoney.com',
+          'sina':'http://finance.sina.com.cn/7x24/'}
 
 
 
@@ -91,6 +92,25 @@ def daily_eastmoney_spider():
         driver.quit()
 
 
+def daily_sina_spider():
+    chrome_options = Options()
+    chrome_options.add_argument('--headless')
+    driver = webdriver.Chrome(chrome_options=chrome_options)
+    try:
+       driver.get(NEWS_URL['sina'])
+       content = driver.find_element_by_id("liveList01")
+       contents = content.find_elements_by_css_selector("[class='bd_i bd_i_og  clearfix']")
+       for vo in contents:
+           index_date = vo.find_element_by_class_name("bd_i_time_c").text
+           text = vo.find_element_by_class_name("bd_i_txt_c").text
+           infor = utils.replace_special_character(text)
+           href = NEWS_URL['sina']+index_date
+           save_current_news('sina', index_date, href, infor)
+    except Exception as error:
+        print('spider error',error)
+    finally:
+        driver.quit()
+
 
 def save_current_news(platform,index_date,href,infor):
     vodto = dto(index_date=index_date, href=href, context=infor,
@@ -100,4 +120,4 @@ def save_current_news(platform,index_date,href,infor):
 
 
 if __name__=='__main__':
-    daily_eastmoney_spider()
+    daily_sina_spider()
