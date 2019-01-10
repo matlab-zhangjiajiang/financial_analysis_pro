@@ -62,11 +62,11 @@ def news_report_research_job():
     constantdict = constant.notice_research_constant()
     jobtwo = newsmanager.stock_news_research_utils(spidernotices)
     ##利好消息
-    jobtwo.study_stock_notice_news(constantdict.GOOD_DICT_ADDRESS)
-    jobtwo.select_current_news_stock(constantdict.GOOD_DICT_ADDRESS,constantdict.GOOD_NEWS_FLAG)
+    jobtwo.study_stock_notice_news(constantdict.get_good_dict_path())
+    jobtwo.select_current_news_stock(constantdict.get_good_dict_path(),constantdict.GOOD_NEWS_FLAG)
     ##利空消息
-    jobtwo.study_stock_notice_news(constantdict.BAD_DICT_ADDRESS)
-    jobtwo.select_current_news_stock(constantdict.BAD_DICT_ADDRESS, constantdict.BAD_NEWS_FLAG)
+    jobtwo.study_stock_notice_news(constantdict.get_bad_dict_path())
+    jobtwo.select_current_news_stock(constantdict.get_bad_dict_path(), constantdict.BAD_NEWS_FLAG)
 
 
 
