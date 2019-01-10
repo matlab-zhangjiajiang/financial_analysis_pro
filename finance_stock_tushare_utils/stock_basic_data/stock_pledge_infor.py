@@ -36,15 +36,15 @@ class stock_pledge_infor(object):
     from_date:质押日期
     end_date: 解除日期
     """
-    def get_all_stock_pledge_detail(self,name):
+    def get_all_stock_pledge_detail_bycode(self,code):
         data = tu.pledged_detail().sort_values(['from_date'],ascending=False)
-        return data.loc[data['name']==name]
+        return data.loc[data['code']==code]
 
     ##pdata 返回质押股份的明细信息
     ##average_value 返回的质押股份的平均值
-    def get_stock_pledge_times(self,name):
-        data =stock_pledge_infor().get_all_stock_pledge_detail(name)
-        datab = data.groupby(['name'])
+    def get_stock_pledge_times(self,code):
+        data =stock_pledge_infor().get_all_stock_pledge_detail_bycode(code)
+        datab = data.groupby(['code'])
         newdata = datab.count().sort_values(['volume'],ascending=False)
         count = int(newdata.count()['volume'])
         names = list(newdata.index)
@@ -57,6 +57,5 @@ class stock_pledge_infor(object):
 
 
 if __name__ == '__main__':
-    data = stock_pledge_infor().get_all_stock_pledge_detail('海翔药业')
-    #data = stock_pledge_infor().get_stock_pledge_times('宗申动力')['pdata']
+    data = stock_pledge_infor().get_all_stock_pledge_detail_bycode('002042')
     print(data)
