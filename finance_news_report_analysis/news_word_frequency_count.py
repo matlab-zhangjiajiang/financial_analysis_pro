@@ -60,9 +60,9 @@ def update_idf_dicttext(url,stopwords):
     ##新的词义写入到当前的文档
     writefile = open(url, 'a')
     writefile.truncate()
-    writefile.write('一带一路 9.85762638414')
+    writefile.write('一带一路 12.85762638414')
     for adddata in stopwords:
-        writefile.write('\n'+adddata+' 9.85762638414')
+        writefile.write('\n'+adddata+' 13.85762638414')
 
 if __name__ == '__main__':
     words_frequency_count()
