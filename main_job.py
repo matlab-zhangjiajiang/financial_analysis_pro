@@ -12,7 +12,6 @@ from finance_news_report_analysis import stock_word_frequency_count as stockword
 from finance_stock_tushare_utils.stock_money_flow_data import stock_money_flow_initdata as flowdata
 from finance_news_report_analysis import notice_research_constant as constant
 
-
 sched = BlockingScheduler()
 import sys
 reload(sys)

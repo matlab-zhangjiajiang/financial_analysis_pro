@@ -104,7 +104,7 @@ def daily_sina_spider():
            index_date = vo.find_element_by_class_name("bd_i_time_c").text
            text = vo.find_element_by_class_name("bd_i_txt_c").text
            infor = utils.replace_special_character(text)
-           href = NEWS_URL['sina']+index_date
+           href = NEWS_URL['sina']+datetime_utils.datetimeutils().get_current_time_new()+'/'+index_date
            save_current_news('sina', index_date, href, infor)
     except Exception as error:
         print('spider error',error)
