@@ -3,6 +3,7 @@ import tushare as tu
 import pandas as pd
 from finance_common_utils.common_utils import datetime_utils as dateutils
 from finance_common_utils.mysql_dbutils import sqlalchemy_dbutils as dbmanager
+from finance_stock_dao_model.stock_money_flow_dto import stock_money_flow_dto as dto
 
 #设置TOKEN
 tu.set_token('b2d9cda1ccac47a845fc2dd31e41a39185bfa43d5b6fa110fddf21e2')
@@ -12,23 +13,13 @@ pro = tu.pro_api()
 class stock_money_flow_data(object):
 
     def init_money_flow_data(self):
-        data = pro.moneyflow_hsgt(start_date='20180125', end_date=dateutils.datetimeutils().get_current_time_new())
-        engine = dbmanager.sql_manager().init_engine()
-        pd.io.sql.to_sql(data, 'finance_system_stock_money_flow_data', con=engine,
-                         if_exists='replace', index=False,chunksize=1000)
-        self.change_table_structure()
+        data = pro.moneyflow_hsgt(start_date='20181231', end_date=dateutils.datetimeutils().get_current_time_new())
+        for idx, row in data.iterrows():
+            vodto = dto(trade_date=row['trade_date'],ggt_ss=row['ggt_ss'],ggt_sz=row['ggt_sz'],
+                        hgt=row['hgt'],sgt=row['sgt'],north_money=row['north_money'],south_money=row['south_money'])
+            dbmanager.sql_manager().single_common_save_basedata(vodto)
 
-    def change_table_structure(self):
-        engine = dbmanager.sql_manager().init_engine()
-        enginesql = " ALTER TABLE `finance_system_stock_money_flow_data` " \
-                    " MODIFY COLUMN `trade_date`  varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '交易日期' FIRST , " \
-                    " MODIFY COLUMN `ggt_ss`  double NULL DEFAULT NULL COMMENT '港股通(上海)' AFTER `trade_date`, " \
-                    " MODIFY COLUMN `ggt_sz`  double NULL DEFAULT NULL COMMENT '港股通(深圳)' AFTER `ggt_ss`, " \
-                    " MODIFY COLUMN `hgt`  double NULL DEFAULT NULL COMMENT '沪股通(百万元)' AFTER `ggt_sz`, " \
-                    " MODIFY COLUMN `sgt`  double NULL DEFAULT NULL COMMENT '深股通(百万元)' AFTER `hgt`, " \
-                    " MODIFY COLUMN `north_money`  double NULL DEFAULT NULL COMMENT '北向资金(百万元)' AFTER `sgt`, " \
-                    " MODIFY COLUMN `south_money`  double NULL DEFAULT NULL COMMENT '南向资金(百万元)' AFTER `north_money` ;"
-        engine.execute(enginesql)
+
 
 if __name__ == '__main__':
     stock_money_flow_data().init_money_flow_data()
