@@ -13,7 +13,7 @@ pro = tu.pro_api()
 class stock_money_flow_data(object):
 
     def init_money_flow_data(self):
-        data = pro.moneyflow_hsgt(start_date='20181231', end_date=dateutils.datetimeutils().get_current_time_new())
+        data = pro.moneyflow_hsgt(start_date=dateutils.datetimeutils().get_after_five_days_time(), end_date=dateutils.datetimeutils().get_current_time_new())
         for idx, row in data.iterrows():
             vodto = dto(trade_date=row['trade_date'],ggt_ss=row['ggt_ss'],ggt_sz=row['ggt_sz'],
                         hgt=row['hgt'],sgt=row['sgt'],north_money=row['north_money'],south_money=row['south_money'])

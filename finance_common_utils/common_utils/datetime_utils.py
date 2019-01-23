@@ -1,5 +1,5 @@
 #coding=utf-8
-from datetime import datetime
+from datetime import datetime ,timedelta
 import time
 import calendar
 
@@ -13,6 +13,16 @@ class datetimeutils(object):
 
     def get_current_time_new(self):
         return datetime.now().strftime('%Y%m%d')
+
+    def get_after_five_days_time(self):
+        #获取当前时间
+        today = datetime.now()
+        #计算偏移量
+        offset = timedelta(days=-5)
+        #获取想要的日期的时间
+        re_date = (today + offset).strftime('%Y%m%d')
+        return re_date
+
 
     def get_current_datetime(self):
         return datetime.now().strftime("%Y-%m-%d %H:%M:%S")
@@ -38,4 +48,4 @@ class datetimeutils(object):
         else: return False
 
 if __name__ == '__main__':
-    print(datetimeutils().get_current_time_new())
+    datetimeutils().get_after_three_days_time()

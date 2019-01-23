@@ -26,7 +26,7 @@ def words_frequency_count():
         jieba.add_word(row['name'])
         jieba.add_word(idx)
         stopwords.append(row['name'].replace(' ',''))
-        stopwords.append(idx.replace(' ',''))
+        #stopwords.append(idx.replace(' ',''))
 
     project_path = os.path.dirname(os.path.realpath(__file__))
     url = project_path+'\\stock_word_dict.txt'
