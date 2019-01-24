@@ -61,7 +61,7 @@ def crawl_sina_news_data_job():
 @sched.scheduled_job('interval', seconds=600)
 def news_report_research_job():
     jobone = remanager.exchange_stock_notice_manager()
-    spidernotices = jobone.get_announcement_notice_sse()
+    spidernotices = jobone.get_announcement_all_notice()
     constantdict = constant.notice_research_constant()
     jobtwo = newsmanager.stock_news_research_utils(spidernotices)
     ##利好消息
