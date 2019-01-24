@@ -1,5 +1,9 @@
 # coding=utf-8
-
+from selenium import webdriver
+from selenium.webdriver.chrome.options import Options
+import time
+from finance_common_utils.common_utils import datetime_utils
+import utils.spider_common_utils as utils
 from datetime import datetime
 from finance_stock_dao_model.exchange_stock_notice_infor_dto import exchange_stock_notice_infor_dto as dto
 
@@ -12,17 +16,26 @@ class exchange_stock_notice_manager(object):
     # 获取当前交易所网站上显示的所有上市公司公告
     # @update: 8.29
     # @return: 当前交易所网站上显示的所有上市公司公告信息
-    def get_announcement_all(self):
+    def get_announcement_notice_sse(self):
         print('----main----')
-        # splits = s.split(',')                           # 切割公告信息
-        # info_code = splits[0].strip('[').strip('"')     # 分离股票代码
-        # info_url = targeturl+splits[1].strip('"')                 # 分离URL链接地址
-        # info_title = splits[2].strip('"')               # 公告标题
-        # info_time = splits[-1].strip('"').strip(']')    # 公告时间戳
-        # key_time = info_time[0:10]                      # 公告时间
-        # vo = dto(stock_code=info_code,info_url=info_url,info_title=info_title,key_time=key_time)
-        # infordata.append(vo)
-        # return infordata
+        chrome_options = Options()
+        chrome_options.add_argument('--headless')
+        driver = webdriver.Chrome(chrome_options=chrome_options)
+        driver.get(NEWS_URL['sse.com'])
+        print('TIME:--->'+datetime_utils.datetimeutils().get_current_datetime())
+        time.sleep(30)
+        print('TIME:--->'+datetime_utils.datetimeutils().get_current_datetime())
+        infordata = []
+        contents = driver.find_element_by_class_name("modal_pdf_list").find_elements_by_tag_name("dd")
+        for vo in contents:
+            info_code = utils.replace_special_character(vo.get_attribute("data-seecode"))
+            info_time = utils.replace_special_character(vo.get_attribute("data-time"))
+            info_url = vo.find_element_by_tag_name("a").get_attribute("href")
+            info_title = vo.find_element_by_tag_name("a").get_attribute("title")
+            print(info_time+":"+info_code+"--->"+info_url+"--->"+info_title)
+            vo = dto(stock_code=info_code, info_url=info_url, info_title=info_title, key_time=info_time)
+            infordata.append(vo)
+        return infordata
 
 if __name__ == '__main__':
-    exchange_stock_notice_manager().get_announcement_all()
+    print(exchange_stock_notice_manager().get_announcement_notice_sse())

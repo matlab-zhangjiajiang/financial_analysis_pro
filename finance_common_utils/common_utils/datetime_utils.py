@@ -48,4 +48,4 @@ class datetimeutils(object):
         else: return False
 
 if __name__ == '__main__':
-    datetimeutils().get_after_three_days_time()
+    datetimeutils()
