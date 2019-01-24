@@ -1,6 +1,5 @@
 #coding=utf-8
 #定时调度机制
-import time
 from apscheduler.schedulers.blocking import BlockingScheduler
 from finance_stock_tushare_utils.stock_basic_data import init_current_bigplate_infor as bigplate
 from finance_stock_tushare_utils.stock_large_holders_data import holdlers_change_data as holderchange
