@@ -3,7 +3,8 @@
 from datetime import datetime
 from finance_stock_dao_model.exchange_stock_notice_infor_dto import exchange_stock_notice_infor_dto as dto
 
-
+NEWS_PLATFORM = {'sse.com': 'SSE'}
+NEWS_URL={'sse.com':'http://www.sse.com.cn/disclosure/listedinfo/announcement/'}
 
 
 class exchange_stock_notice_manager(object):
