@@ -13,9 +13,7 @@ NEWS_URL={'sse.com':'http://www.sse.com.cn/disclosure/listedinfo/announcement/'}
 
 class exchange_stock_notice_manager(object):
 
-    # 获取当前交易所网站上显示的所有上市公司公告
-    # @update: 8.29
-    # @return: 当前交易所网站上显示的所有上市公司公告信息
+    #上交所公告
     def get_announcement_notice_sse(self):
         print('----main----')
         chrome_options = Options()
