@@ -2,11 +2,15 @@
 from datetime import datetime ,timedelta
 import time
 import calendar
+import loggger_factory as loggers
+
+logger = loggers.Logger(logname='log.txt', loglevel=1, logger="datetimeutils").getlog()
+
 
 class datetimeutils(object):
 
     def __init__(self):
-        print('初始化时间工具类')
+        logger.info('初始化时间工具类')
 
     def get_current_time(self):
         return datetime.now().strftime('%Y-%m-%d')
