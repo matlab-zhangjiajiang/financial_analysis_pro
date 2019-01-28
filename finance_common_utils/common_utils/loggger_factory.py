@@ -1,25 +1,39 @@
+#coding=utf-8
 import logging
 
+#用字典保存日志级别
+format_dict = {
+   1: logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s'),
+   2: logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s'),
+   3: logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s'),
+   4: logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s'),
+   5: logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+}
 
-def create_logger_factory(class_name,):
-    logger = logging.getLogger(class_name)
-    logger.setLevel(logging.DEBUG)
-    # create console handler and set level to debug
-    ch = logging.StreamHandler()
-    ch.setLevel(logging.DEBUG)
-    # create formatter for console handler
-    formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
-    # add formatter to console handler
-    ch.setFormatter(formatter)
-    # create file handler and set level to warn
-    fh = logging.FileHandler('spam.log')
-    fh.setLevel(logging.WARN)
-    # create formatter for file handler
-    formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(userid)s - %(message)s')
+class Logger():
 
-    # add formatter to file handler
-    fh.setFormatter(formatter)
+    def __init__(self, logname, loglevel, logger):
+        # 指定保存日志的文件路径，日志级别，以及调用文件将日志存入到指定的文件中,创建一个logger
+        self.logger = logging.getLogger(logger)
+        self.logger.setLevel(logging.DEBUG)
 
-    # add ch、fh to logger
-    logger.addHandler(ch)
-    logger.addHandler(fh)
+        # 创建一个handler，用于写入日志文件
+        fh = logging.FileHandler(logname)
+        fh.setLevel(logging.DEBUG)
+
+        # 再创建一个handler，用于输出到控制台
+        ch = logging.StreamHandler()
+        ch.setLevel(logging.DEBUG)
+
+        # 定义handler的输出格式
+        # formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+        formatter = format_dict[int(loglevel)]
+        fh.setFormatter(formatter)
+        ch.setFormatter(formatter)
+
+        # 给logger添加handler
+        self.logger.addHandler(fh)
+        self.logger.addHandler(ch)
+
+    def getlog(self):
+        return self.logger

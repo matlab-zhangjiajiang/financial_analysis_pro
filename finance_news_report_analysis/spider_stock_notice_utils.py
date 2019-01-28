@@ -6,24 +6,28 @@ from finance_common_utils.common_utils import datetime_utils
 import utils.spider_common_utils as utils
 from datetime import datetime
 from finance_stock_dao_model.exchange_stock_notice_infor_dto import exchange_stock_notice_infor_dto as dto
+from finance_common_utils.common_utils import loggger_factory as loggers
+
 
 NEWS_PLATFORM = {'sse.com': 'SSE','szse.com':'SZSE'}
 NEWS_URL={'sse.com':'http://www.sse.com.cn/disclosure/listedinfo/announcement/',
           'szse.com':'http://www.szse.cn/disclosure/listed/notice/index.html',
           'main.szse':'http://www.szse.cn'}
 
+logger = loggers.Logger(logname='log.txt', loglevel=1, logger="exchange_stock_notice_manager").getlog()
+
 class exchange_stock_notice_manager(object):
 
     #上交所公告
     def get_announcement_notice_sse(self):
-        print('----main----')
+        logger.info('----main----')
         chrome_options = Options()
         chrome_options.add_argument('--headless')
         driver = webdriver.Chrome(chrome_options=chrome_options)
         driver.get(NEWS_URL['sse.com'])
-        print('TIME:--->'+datetime_utils.datetimeutils().get_current_datetime())
+        logger.info('TIME:--->'+datetime_utils.datetimeutils().get_current_datetime())
         time.sleep(15)
-        print('TIME:--->'+datetime_utils.datetimeutils().get_current_datetime())
+        logger.info('TIME:--->'+datetime_utils.datetimeutils().get_current_datetime())
         infordata = []
         contents = driver.find_element_by_class_name("modal_pdf_list").find_elements_by_tag_name("dd")
         for vo in contents:
@@ -41,9 +45,9 @@ class exchange_stock_notice_manager(object):
         chrome_options.add_argument('--headless')
         driver = webdriver.Chrome(chrome_options=chrome_options)
         driver.get(NEWS_URL['szse.com'])
-        print('TIME:--->' + datetime_utils.datetimeutils().get_current_datetime())
+        logger.info('TIME:--->' + datetime_utils.datetimeutils().get_current_datetime())
         time.sleep(10)
-        print('TIME:--->' + datetime_utils.datetimeutils().get_current_datetime())
+        logger.info('TIME:--->' + datetime_utils.datetimeutils().get_current_datetime())
         infordata = []
         contents = driver.find_element_by_class_name("disclosure-tbody").find_elements_by_tag_name("tr")
         for vo in contents:
