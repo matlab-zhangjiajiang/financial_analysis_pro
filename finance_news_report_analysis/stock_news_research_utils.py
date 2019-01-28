@@ -71,7 +71,7 @@ class stock_news_research_utils(object):
 
 
 if __name__ == '__main__':
-    spidernotices = spidernews.exchange_stock_notice_manager().get_announcement_all()
+    spidernotices = spidernews.exchange_stock_notice_manager().get_announcement_all_notice()
     constantdict = constant.notice_research_constant()
     stock_news_research_utils(spidernotices).study_stock_notice_news(constantdict.get_good_dict_path())
     stock_news_research_utils(spidernotices).select_current_news_stock(constantdict.get_bad_dict_path(),constantdict.BAD_NEWS_FLAG)
