@@ -92,7 +92,7 @@ if __name__ == '__main__':
 
      #all_financial_infor_utils().get_single_financial_resource('gpcw20180930.zip')
 
-     code = '300461'
+     code = '601766'
      columnlist= ['EPS','ROE','turnoverRatioOfInventory','currentRatio','numberOfShareholders','accountsReceivables','daysSalesOutstanding','cashRatio',
                   'goodwill','netProfit']
      get_financial_infor_utils().get_current_target(code,columnlist)
