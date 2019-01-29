@@ -9,6 +9,7 @@ from finance_news_report_analysis import spider_web_news_utils as webmaneger
 from finance_news_report_analysis import news_word_frequency_count as wordsearch
 from finance_news_report_analysis import stock_word_frequency_count as stockwordsearch
 from finance_stock_tushare_utils.stock_money_flow_data import stock_money_flow_initdata as flowdata
+from finance_stock_tushare_utils.stock_money_flow_data import stock_money_margin_trade_data as margindata
 from finance_news_report_analysis import notice_research_constant as constant
 sched = BlockingScheduler()
 import sys
@@ -25,11 +26,14 @@ def holders_across_holdes_job():
     #holder.topten_holders_across_hold(current_table_start_id, current_table_end_id)
 
 
-##南上北下资金流向
+##南上北下资金流向--融资融券信息
 @sched.scheduled_job('interval', seconds=3600)
 def init_stock_money_flow_data_job():
     flowdatajob = flowdata.stock_money_flow_data()
     flowdatajob.init_money_flow_data()
+    #融资融券数据
+    margindata.init_stock_money_margin()
+
 
 
 #新闻及时爬取
@@ -70,6 +74,9 @@ def format_pe_job():
     plate = bigplate.init_bigplate_infor()
     plate.init_basic_stock_infor()
     plate.init_current_bigplate_info()
+
+
+
 
 print('sched----->start')
 sched.start()
