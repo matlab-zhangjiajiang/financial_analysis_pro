@@ -72,12 +72,12 @@ def news_report_research_job():
 
 
 #表示从星期一到星期五下午19:30（AM）直到2089-04-24 00:00:00
-@sched.scheduled_job('cron',day_of_week='mon-fri', hour=20, minute=30,end_date='2089-04-24')
-def format_pe_job():
+def init_current_day_pe_job():
     plate = bigplate.init_bigplate_infor()
     plate.init_basic_stock_infor()
     plate.init_current_bigplate_info()
 
-logger.info('sched----->start')
-sched.add_job(format_pe_job,'cron',day_of_week='mon-fri', hour=20, minute=30,end_date='2089-04-24')
+logger.info('sched----->start---->init_current_day_pe_job')
+sched.add_job(init_current_day_pe_job, 'cron', day_of_week='mon-fri', hour=19, minute=30, end_date='2029-04-24')
+logger.info('sched----->end---->init_current_day_pe_job')
 sched.start()

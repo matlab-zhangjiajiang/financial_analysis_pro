@@ -755,3 +755,5 @@
 2019-01-29 18:10:59,398 - datetimeutils - INFO - 初始化时间工具类
 2019-01-29 18:12:50,516 - exchange_stock_notice_manager - INFO - ----main----
 2019-01-29 18:42:50,522 - datetimeutils - INFO - 初始化时间工具类
+2019-01-30 11:11:49,645 - main_job - INFO - sched----->start---->init_current_day_pe_job
+2019-01-30 11:11:49,667 - main_job - INFO - sched----->end---->init_current_day_pe_job
