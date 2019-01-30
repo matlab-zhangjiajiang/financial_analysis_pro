@@ -11,12 +11,15 @@ from finance_news_report_analysis import stock_word_frequency_count as stockword
 from finance_stock_tushare_utils.stock_money_flow_data import stock_money_flow_initdata as flowdata
 from finance_stock_tushare_utils.stock_money_flow_data import stock_money_margin_trade_data as margindata
 from finance_news_report_analysis import notice_research_constant as constant
+from finance_common_utils.common_utils import loggger_factory as loggers
+
+
 sched = BlockingScheduler()
 import sys
 reload(sys)
 sys.setdefaultencoding('utf-8')
 
-
+logger = loggers.Logger(logname='log.txt', loglevel=1, logger="main_job").getlog()
 
 @sched.scheduled_job('cron',day_of_week='mon-fri', hour=17, minute=30,end_date='2089-04-24')
 def holders_across_holdes_job():
@@ -75,8 +78,6 @@ def format_pe_job():
     plate.init_basic_stock_infor()
     plate.init_current_bigplate_info()
 
-
-
-
-print('sched----->start')
+logger.info('sched----->start')
+sched.add_job(format_pe_job,'cron',day_of_week='mon-fri', hour=20, minute=30,end_date='2089-04-24')
 sched.start()

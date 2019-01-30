@@ -1,2 +1,4 @@
 2019-01-28 21:35:34,852 - datetimeutils - INFO - 初始化时间工具类
 2019-01-28 21:35:53,341 - datetimeutils - INFO - 初始化时间工具类
+2019-01-30 09:23:57,947 - datetimeutils - INFO - 初始化时间工具类
+2019-01-30 09:23:58,028 - datetimeutils - INFO - 初始化时间工具类

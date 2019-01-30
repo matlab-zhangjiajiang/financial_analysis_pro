@@ -16428,3 +16428,7 @@
 2019-01-29 16:45:50,131 - init_stock_money_margin - INFO - TIME:--->2019-01-29 16:45:50
 2019-01-29 16:45:55,131 - datetimeutils - INFO - 初始化时间工具类
 2019-01-29 16:45:55,131 - init_stock_money_margin - INFO - TIME:--->2019-01-29 16:45:55
+2019-01-30 09:18:56,414 - datetimeutils - INFO - 初始化时间工具类
+2019-01-30 09:18:56,414 - init_stock_money_margin - INFO - TIME:--->2019-01-30 09:18:56
+2019-01-30 09:19:01,414 - datetimeutils - INFO - 初始化时间工具类
+2019-01-30 09:19:01,414 - init_stock_money_margin - INFO - TIME:--->2019-01-30 09:19:01
