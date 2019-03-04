@@ -41,7 +41,7 @@ class stock_circulat_holdlers(object):
       def test_init_stock_holders_topten(self):
           # 设置PRO-API
           pro = tu.pro_api()
-          df = pro.top10_floatholders(ts_code='600000.SH', start_date='20180830', end_date='20181030')
+          df = pro.top10_floatholders(ts_code='600000.SH', start_date='20180930', end_date='20190331')
           print(df)
 
 
@@ -55,5 +55,5 @@ class stock_circulat_holdlers(object):
 
 
 if __name__ == '__main__':
-      stock_circulat_holdlers().init_stock_holders_topten()
-      #stock_circulat_holdlers().test_init_stock_holders_topten()
+      #stock_circulat_holdlers().init_stock_holders_topten()
+      stock_circulat_holdlers().test_init_stock_holders_topten()
