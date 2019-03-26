@@ -2,6 +2,10 @@
 import tushare as tu
 import pandas as pd
 from finance_common_utils.mysql_dbutils import sqlalchemy_dbutils as dbmanager
+from finance_common_utils.common_utils import loggger_factory as loggers
+import time
+
+logger = loggers.Logger(logname='log.txt', loglevel=1, logger="hodlers_topten_job").getlog()
 
 class stock_circulat_holdlers(object):
 
@@ -17,9 +21,14 @@ class stock_circulat_holdlers(object):
           currentlist = list(basicdata['ts_code'])
           holders_pandas = None
 
+
+          #2018年第四季度
+          current_start_date = '20181030'
+          current_end_date = '20190331'
+
           ##2018年第三季度
-          current_start_date = '20180830'
-          current_end_date = '20181030'
+          #current_start_date = '20180830'
+          #current_end_date = '20181030'
 
           ##2018年第二季度
           #current_start_date='20180630'
@@ -30,18 +39,24 @@ class stock_circulat_holdlers(object):
           #current_end_date='20180530'
 
           for tradecode in currentlist:
-              df = pro.top10_floatholders(ts_code=tradecode, start_date=current_start_date, end_date=current_end_date)
-              holders_pandas = pd.concat([holders_pandas,df])
-              engine = dbmanager.sql_manager().init_engine()
-              pd.io.sql.to_sql(df, 'finance_system_stock_circulat_holds_data_'+current_start_date, con=engine, if_exists='append', index=False,
-                 chunksize=1000)
+              try:
+                  time.sleep(5)
+                  df = pro.top10_floatholders(ts_code=tradecode, start_date=current_start_date,
+                                              end_date=current_end_date)
+                  holders_pandas = pd.concat([holders_pandas, df])
+                  engine = dbmanager.sql_manager().init_engine()
+                  pd.io.sql.to_sql(df, 'finance_system_stock_circulat_holds_data_' + current_start_date, con=engine,
+                                   if_exists='append', index=False,
+                                   chunksize=1000)
+              except Exception as error:
+                  logger.info(error.message)
 
           self.formate_current_stock_holders_topten_table(current_start_date)
 
       def test_init_stock_holders_topten(self):
           # 设置PRO-API
           pro = tu.pro_api()
-          df = pro.top10_floatholders(ts_code='600000.SH', start_date='20180930', end_date='20190331')
+          df = pro.top10_floatholders(ts_code='600468.SH', start_date='20181030', end_date='20190331')
           print(df)
 
 
@@ -55,5 +70,5 @@ class stock_circulat_holdlers(object):
 
 
 if __name__ == '__main__':
-      #stock_circulat_holdlers().init_stock_holders_topten()
-      stock_circulat_holdlers().test_init_stock_holders_topten()
+      stock_circulat_holdlers().init_stock_holders_topten()
+      #stock_circulat_holdlers().test_init_stock_holders_topten()
