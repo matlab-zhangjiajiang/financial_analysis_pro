@@ -20,12 +20,12 @@ class stock_topten_holdlers_change(object):
         sql = ' SELECT  *  FROM (SELECT  COUNT(ts_code) AS counts, DATAS.holder_name AS holdername,' \
               ' DATAS.hold_amount AS holdamount , DATAS.ann_date as anndate ' \
               ' FROM finance_system_stock_circulat_holds_data_' + tablenameid + ' AS DATAS' \
-              ' WHERE 1=1 GROUP BY holder_name) AS TEMP ORDER BY TEMP.counts DESC '
+              ' WHERE 1=1 GROUP BY holder_name) AS TEMP WHERE TEMP.counts >=2 ORDER BY TEMP.counts DESC '
         conengine = dbmanager.sql_manager().init_engine()
         data = pd.read_sql_query(sql, conengine)
-        holdername = data.head(300)['holdername']
-        counts = data.head(300)['counts']
-        pdd = pd.DataFrame({'holdername': holdername, 'counts': counts}, index=data.head(100).index)
+        holdername = data['holdername']
+        counts = data['counts']
+        pdd = pd.DataFrame({'holdername': holdername, 'counts': counts}, index=data.index)
         return pdd
         # print(pdd)
 
@@ -51,7 +51,7 @@ class stock_topten_holdlers_change(object):
     # 大庄家穿插
     def topten_holders_across_hold(self, tablestartid, tableendid):
         pds = self.init_strong_stock_holder(tableendid)
-        listholds = list(pds['holdername'])
+        listholds = list(pds.head(300)['holdername'])
         conengine = dbmanager.sql_manager().init_engine()
         newdata = None
         for holdcomb in combinations(listholds, 2):
