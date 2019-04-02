@@ -43,10 +43,24 @@ class stock_topten_holdlers_change(object):
               " ON stockdata. CODE = CODES.STOCKCODE" % (tableendid, tablestartid, holdername, holdername)
         conengine = dbmanager.sql_manager().init_engine()
         data = pd.read_sql_query(sql, conengine)
-        print(data)
+        return data
 
-
-
+    def all_increase_hold_stock_infor(self, tablestartid, tableendid):
+        pds = self.init_strong_stock_holder(tableendid)
+        listholds = list(pds['holdername'])
+        newdata = None
+        for holdername in listholds:
+            data = self.increase_hold_stock_infor(tablestartid, tableendid, holdername)
+            if data.empty != True:
+               newdata = pd.concat([newdata, data])
+        engine = dbmanager.sql_manager().init_engine()
+        pd.io.sql.to_sql(newdata, 'finance_system_stock_topholder_increase_data', con=engine, if_exists='replace',
+                         index=False, chunksize=1000)
+        engine.execute(" ALTER TABLE `finance_system_stock_topholder_increase_data` "
+                       " MODIFY COLUMN `area`  varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL FIRST,"
+                       " MODIFY COLUMN `code`  varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL AFTER `area`,"
+                       " MODIFY COLUMN `industry`  varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL AFTER `holders`,"
+                       " MODIFY COLUMN `name`  varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL AFTER `industry`; ")
 
     # 大庄家穿插
     def topten_holders_across_hold(self, tablestartid, tableendid):
@@ -102,6 +116,6 @@ if __name__ == '__main__':
 
     #current_holdname = '徐开东'
     # stock_topten_holdlers_change().init_strong_stock_holder(current_start_date)
-    #stock_topten_holdlers_change().increase_hold_stock_infor(current_table_start_id,current_table_end_id,current_holdname)
-
-    stock_topten_holdlers_change().topten_holders_across_hold(current_table_start_id, current_table_end_id)
+    # stock_topten_holdlers_change().increase_hold_stock_infor(current_table_start_id,current_table_end_id,current_holdname)
+    # stock_topten_holdlers_change().topten_holders_across_hold(current_table_start_id, current_table_end_id)
+    stock_topten_holdlers_change().all_increase_hold_stock_infor(current_table_start_id, current_table_end_id)
