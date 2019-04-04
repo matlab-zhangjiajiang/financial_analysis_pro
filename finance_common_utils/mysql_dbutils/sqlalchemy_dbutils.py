@@ -56,3 +56,6 @@ class sql_manager(object):
         data = session.query(dto).all()
         session.close()
         return data
+
+if __name__ == '__main__':
+    sql_manager().init_engine()

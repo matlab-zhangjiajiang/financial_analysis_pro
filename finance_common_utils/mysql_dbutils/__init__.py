@@ -1,1 +1,2 @@
-__author__ = 'zhang.jj'
+import pymysql
+pymysql.install_as_MySQLdb()
