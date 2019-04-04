@@ -3,13 +3,11 @@ from pytdx.hq import TdxHq_API
 from pytdx.params import TDXParams
 from finance_stock_dao_model import stock_infor_base_dto as basicvo
 from finance_stock_dao_model.stock_set_bid_base_dto import stock_set_bid_base_dto as dto
-from connection_host_server import connection_host_server as serviceinfo
+from finance_stock_pytdx_utils.connection_host_server import connection_host_server as serviceinfo
 from finance_common_utils.common_utils import datetime_utils
 import finance_common_utils.mysql_dbutils.sqlalchemy_dbutils as dbmanager
 from finance_stock_dao_model.stock_set_bid_base_rate_dto import stock_set_bid_base_rate_dto as ratedto
 import sys
-reload(sys)
-sys.setdefaultencoding('utf-8')
 
 api = TdxHq_API()
 
