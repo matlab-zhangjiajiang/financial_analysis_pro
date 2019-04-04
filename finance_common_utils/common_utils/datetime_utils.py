@@ -2,7 +2,7 @@
 from datetime import datetime ,timedelta
 import time
 import calendar
-import loggger_factory as loggers
+from finance_common_utils.common_utils import Logger as loggers
 
 logger = loggers.Logger(logname='log.txt', loglevel=1, logger="datetimeutils").getlog()
 

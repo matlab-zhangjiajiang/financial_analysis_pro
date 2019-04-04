@@ -3,10 +3,10 @@ from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 import time
 from finance_common_utils.common_utils import datetime_utils
-import utils.spider_common_utils as utils
+from finance_news_report_analysis.utils import spider_common_utils as utils
 from datetime import datetime
 from finance_stock_dao_model.exchange_stock_notice_infor_dto import exchange_stock_notice_infor_dto as dto
-from finance_common_utils.common_utils import loggger_factory as loggers
+from finance_common_utils.common_utils import Logger as loggers
 
 
 NEWS_PLATFORM = {'sse.com': 'SSE','szse.com':'SZSE'}

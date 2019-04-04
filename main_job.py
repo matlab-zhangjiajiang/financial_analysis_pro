@@ -11,13 +11,13 @@ from finance_news_report_analysis import stock_word_frequency_count as stockword
 from finance_stock_tushare_utils.stock_money_flow_data import stock_money_flow_initdata as flowdata
 from finance_stock_tushare_utils.stock_money_flow_data import stock_money_margin_trade_data as margindata
 from finance_news_report_analysis import notice_research_constant as constant
-from finance_common_utils.common_utils import loggger_factory as loggers
+from finance_common_utils.common_utils import Logger as loggers
 
 
 sched = BlockingScheduler()
 import sys
-reload(sys)
-sys.setdefaultencoding('utf-8')
+import imp
+imp.reload(sys)
 
 logger = loggers.Logger(logname='log.txt', loglevel=1, logger="main_job").getlog()
 

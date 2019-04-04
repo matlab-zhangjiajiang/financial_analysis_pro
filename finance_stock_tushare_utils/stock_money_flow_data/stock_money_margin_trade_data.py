@@ -7,7 +7,7 @@ from selenium import webdriver
 import time
 from finance_news_report_analysis.utils import spider_common_utils as utils
 from selenium.webdriver.chrome.options import Options
-from finance_common_utils.common_utils import loggger_factory as loggers
+from finance_common_utils.common_utils import Logger as loggers
 from finance_stock_dao_model.stock_money_margin_trade_data_dto import stock_money_margin_trade_data_dto as dto
 from finance_common_utils.mysql_dbutils import sqlalchemy_dbutils as dbmanager
 

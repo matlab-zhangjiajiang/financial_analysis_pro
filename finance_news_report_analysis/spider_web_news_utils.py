@@ -1,7 +1,7 @@
 # coding=utf-8
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
-import utils.spider_common_utils as utils
+from finance_news_report_analysis.utils import spider_common_utils as utils
 from finance_common_utils.common_utils import datetime_utils
 import finance_common_utils.mysql_dbutils.sqlalchemy_dbutils as dbmanager
 from finance_stock_dao_model.stock_news_data_dto import stock_news_data_dto as dto

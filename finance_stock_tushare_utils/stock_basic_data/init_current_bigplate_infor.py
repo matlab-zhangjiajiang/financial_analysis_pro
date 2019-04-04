@@ -8,7 +8,7 @@ import matplotlib.pyplot as plt
 from finance_common_utils.common_utils import datetime_utils as dateutils
 from finance_stock_dao_model.stock_infor_bigplate_dto import stock_infor_bigplate_dto as bigplate
 from finance_stock_dao_model.stock_infor_base_dto import stock_infor_base_dto as stockbaseinfo
-import init_current_stock_infor as initstock
+from finance_stock_tushare_utils.stock_basic_data import init_current_stock_infor as initstock
 
 ##https://www.cnblogs.com/xiaonq/p/8420826.html
 

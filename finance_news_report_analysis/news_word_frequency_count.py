@@ -6,7 +6,7 @@ import tushare as tu
 import os
 from collections import Counter
 from finance_common_utils.mysql_dbutils import sqlalchemy_dbutils as dbmanager
-import utils.spider_common_utils as utils
+from finance_news_report_analysis.utils import spider_common_utils as utils
 #新增关键词
 stopwords_dict = ['雄安新区', '区块链', '数字货币', '虚拟货币',  '比特币', '对冲基金', '自贸区', '自由贸易区','乡村振兴','美丽中国','共享经济','租购同权','新零售',
              '共有产权房','楼市调控', '产权保护', '互联网金融', '5G', '4G', '国企改革', '大湾区', '长江经济带']

@@ -2,7 +2,7 @@
 import tushare as tu
 import pandas as pd
 from finance_common_utils.mysql_dbutils import sqlalchemy_dbutils as dbmanager
-from finance_common_utils.common_utils import loggger_factory as loggers
+from finance_common_utils.common_utils import Logger as loggers
 import time
 
 logger = loggers.Logger(logname='log.txt', loglevel=1, logger="hodlers_topten_job").getlog()

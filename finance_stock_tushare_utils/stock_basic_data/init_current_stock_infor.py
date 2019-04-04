@@ -2,7 +2,7 @@
 import tushare as tu
 import pandas as pd
 from finance_common_utils.mysql_dbutils import sqlalchemy_dbutils as dbmanager
-import init_current_bigplate_infor  as manager
+from finance_stock_tushare_utils.stock_basic_data import init_current_bigplate_infor  as manager
 
 ###获取股票市场基础信息
 class init_stock_infor(object):

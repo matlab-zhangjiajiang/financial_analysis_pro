@@ -2,9 +2,8 @@
 import tushare as tu
 import pandas as pd
 import sys
-
-reload(sys)
-sys.setdefaultencoding('utf-8')
+import imp
+imp.reload(sys)
 from finance_common_utils.mysql_dbutils import sqlalchemy_dbutils as dbmanager
 from itertools import combinations
 
