@@ -13,6 +13,6 @@ def replace_special_character(context):
     return context.replace('\n','').replace(' ','').replace('<br>','').replace('<p>','').replace('</p>','').replace('<br/>','')
 
 def replace_spicial_symbol(context):
-    return context.encode("utf-8").replace('，','').replace('。','')\
+    return context.replace('，','').replace('。','')\
         .replace('【','').replace('】','').replace('、','').replace('（','')\
         .replace('）','').replace('：','').replace('…','')

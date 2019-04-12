@@ -85,7 +85,7 @@ class stock_topten_holdlers_change(object):
                   " ALLSDATA GROUP BY ALLSDATA.STOCKCODE" \
                   " HAVING COUNT(ALLSDATA.STOCKCODE) > 1 " % (tableendid, tablestartid, holdonename, holdonename,
                                                               tableendid, tablestartid, holdtwoname, holdtwoname)
-            print (sql)
+            print(sql)
             data = pd.read_sql_query(sql, conengine)
             if data.empty!=True:
                 newdata = pd.concat([newdata,data])
