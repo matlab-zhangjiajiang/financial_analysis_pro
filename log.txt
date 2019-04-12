@@ -35793,3 +35793,5 @@
 2019-04-04 20:18:56,937 - datetimeutils - INFO - 初始化时间工具类
 2019-04-08 10:52:33,925 - main_job - INFO - sched----->start---->init_current_day_pe_job
 2019-04-08 10:52:33,926 - main_job - INFO - sched----->end---->init_current_day_pe_job
+2019-04-12 14:49:47,694 - main_job - INFO - sched----->start---->init_current_day_pe_job
+2019-04-12 14:49:47,696 - main_job - INFO - sched----->end---->init_current_day_pe_job
