@@ -11,8 +11,7 @@ import os
 
 #系统属性设置.
 import sys
-reload(sys)
-sys.setdefaultencoding('utf-8')
+
 api = TdxHq_API()
 pd.set_option('display.max_columns',None,'precision',5)
 
@@ -92,7 +91,7 @@ if __name__ == '__main__':
 
      #all_financial_infor_utils().get_single_financial_resource('gpcw20180930.zip')
 
-     code = '600959'
+     code = '600251'
      columnlist= ['EPS','ROE','turnoverRatioOfInventory','currentRatio','numberOfShareholders','accountsReceivables','daysSalesOutstanding','cashRatio',
                   'goodwill','netProfit']
      get_financial_infor_utils().get_current_target(code,columnlist)
