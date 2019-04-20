@@ -7,7 +7,6 @@ from finance_stock_pytdx_utils.connection_host_server import connection_host_ser
 from finance_common_utils.common_utils import datetime_utils
 import finance_common_utils.mysql_dbutils.sqlalchemy_dbutils as dbmanager
 from finance_stock_dao_model.stock_set_bid_base_rate_dto import stock_set_bid_base_rate_dto as ratedto
-import sys
 
 api = TdxHq_API()
 

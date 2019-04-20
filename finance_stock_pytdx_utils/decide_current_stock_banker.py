@@ -3,13 +3,8 @@ import pandas as pd
 from pytdx.hq import TdxHq_API
 from pytdx.params import TDXParams
 from finance_stock_dao_model import stock_infor_base_dto as basicvo
-from connection_host_server import connection_host_server as serviceinfo
-import sys
-reload(sys)
-sys.setdefaultencoding('utf-8')
-
+from finance_stock_pytdx_utils.connection_host_server import connection_host_server as serviceinfo
 api = TdxHq_API()
-
 
 class decide_current_stock_banker(object):
 
