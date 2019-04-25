@@ -29,10 +29,6 @@ def words_frequency_count():
         stopwords.append(row['name'].replace(' ',''))
         #stopwords.append(idx.replace(' ',''))
 
-    project_path = os.path.dirname(os.path.realpath(__file__))
-    url = project_path+'\\stock_word_dict.txt'
-    update_idf_dicttext(url,stopwords)
-    jieba.load_userdict(url)
 
     conengine = dbmanager.sql_manager().init_engine()
     sql ='SELECT * FROM FINANCE_SYSTEM_STOCK_NEWS_DATA WHERE DATE(CREATE_TIME) = CURDATE()'
@@ -53,14 +49,6 @@ def words_frequency_count():
     pd.io.sql.to_sql(result, 'finance_system_stock_word_frequency_data', con=engine, if_exists='replace', index=False,
                  chunksize=1000)
 
-
-def update_idf_dicttext(url,stopwords):
-    ##新的词义写入到当前的文档
-    writefile = open(url, 'a')
-    writefile.truncate()
-    writefile.write('一带一路')
-    for adddata in stopwords:
-        writefile.write('\n'+adddata)
 
 if __name__ == '__main__':
     words_frequency_count()
