@@ -12,12 +12,8 @@ from finance_stock_tushare_utils.stock_money_flow_data import stock_money_flow_i
 from finance_stock_tushare_utils.stock_money_flow_data import stock_money_margin_trade_data as margindata
 from finance_news_report_analysis import notice_research_constant as constant
 from finance_common_utils.common_utils import Logger as loggers
-
-
 sched = BlockingScheduler()
-import sys
-import imp
-imp.reload(sys)
+
 
 logger = loggers.Logger(logname='log.txt', loglevel=1, logger="main_job").getlog()
 
@@ -46,14 +42,11 @@ def init_current_stock_news_data():
     webmaneger.daily_tonghuasun_spider()
     webmaneger.daily_eastmoney_spider()
     webmaneger.daily_yuncaijing_spider()
+    webmaneger.daily_sina_spider()
     #词频分析
     wordsearch.words_frequency_count()
     stockwordsearch.words_frequency_count()
 
-
-@sched.scheduled_job('interval', seconds=120)
-def crawl_sina_news_data_job():
-    webmaneger.daily_sina_spider()
 
 
 #[公告信息]---->有利

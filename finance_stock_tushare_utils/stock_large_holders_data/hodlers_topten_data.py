@@ -40,7 +40,7 @@ class stock_circulat_holdlers(object):
 
           for tradecode in currentlist:
               try:
-                  time.sleep(1)
+                  time.sleep(2)
                   df = pro.top10_floatholders(ts_code=tradecode, start_date=current_start_date,
                                               end_date=current_end_date)
                   holders_pandas = pd.concat([holders_pandas, df])

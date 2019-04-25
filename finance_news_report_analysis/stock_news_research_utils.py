@@ -1,12 +1,9 @@
 # coding=utf-8
 import jieba
-import sys
 from finance_common_utils.mysql_dbutils import sqlalchemy_dbutils as dbmanager
 from finance_news_report_analysis import spider_stock_notice_utils as spidernews
 from finance_news_report_analysis import notice_research_constant as constant
-import sys
-import imp
-imp.reload(sys)
+
 
 class stock_news_research_utils(object):
 

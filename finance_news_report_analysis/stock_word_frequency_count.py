@@ -5,8 +5,6 @@ import pandas as pd
 import tushare as tu
 import os
 import sys
-import imp
-imp.reload(sys)
 from collections import Counter
 from finance_common_utils.mysql_dbutils import sqlalchemy_dbutils as dbmanager
 from finance_news_report_analysis.utils import spider_common_utils as utils
