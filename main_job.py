@@ -10,7 +10,7 @@ from finance_news_report_analysis import news_word_frequency_count as wordsearch
 from finance_news_report_analysis import stock_word_frequency_count as stockwordsearch
 from finance_stock_tushare_utils.stock_money_flow_data import stock_money_flow_initdata as flowdata
 from finance_stock_tushare_utils.stock_money_flow_data import stock_money_margin_trade_data as margindata
-from finance_news_report_analysis import notice_research_constant as constant
+from finance_news_report_analysis import notice_constant as constant
 from finance_common_utils.common_utils import Logger as loggers
 sched = BlockingScheduler()
 
@@ -54,14 +54,14 @@ def init_current_stock_news_data():
 def news_report_research_job():
     jobone = remanager.exchange_stock_notice_manager()
     spidernotices = jobone.get_announcement_all_notice()
-    constantdict = constant.notice_research_constant()
+    constantdict = constant.notice_constant()
     jobtwo = newsmanager.stock_news_research_utils(spidernotices)
     ##利好消息
-    jobtwo.study_stock_notice_news(constantdict.get_good_dict_path())
-    jobtwo.select_current_news_stock(constantdict.get_good_dict_path(),constantdict.GOOD_NEWS_FLAG)
+    jobtwo.study_stock_notice_news(constantdict.GOOD_NEWS_FLAG)
+    jobtwo.select_current_news_stock(constantdict.GOOD_NEWS_FLAG)
     ##利空消息
-    jobtwo.study_stock_notice_news(constantdict.get_bad_dict_path())
-    jobtwo.select_current_news_stock(constantdict.get_bad_dict_path(), constantdict.BAD_NEWS_FLAG)
+    jobtwo.study_stock_notice_news(constantdict.BAD_NEWS_FLAG)
+    jobtwo.select_current_news_stock(constantdict.BAD_NEWS_FLAG)
 
 
 #表示从星期一到星期五下午19:30（AM）直到2089-04-24 00:00:00

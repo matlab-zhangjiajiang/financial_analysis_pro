@@ -26,7 +26,7 @@ class exchange_stock_notice_manager(object):
         driver = webdriver.Chrome(chrome_options=chrome_options)
         driver.get(NEWS_URL['sse.com'])
         logger.info('TIME:--->'+datetime_utils.datetimeutils().get_current_datetime())
-        time.sleep(15)
+        time.sleep(5)
         logger.info('TIME:--->'+datetime_utils.datetimeutils().get_current_datetime())
         infordata = []
         contents = driver.find_element_by_class_name("modal_pdf_list").find_elements_by_tag_name("dd")
@@ -46,7 +46,7 @@ class exchange_stock_notice_manager(object):
         driver = webdriver.Chrome(chrome_options=chrome_options)
         driver.get(NEWS_URL['szse.com'])
         logger.info('TIME:--->' + datetime_utils.datetimeutils().get_current_datetime())
-        time.sleep(10)
+        time.sleep(5)
         logger.info('TIME:--->' + datetime_utils.datetimeutils().get_current_datetime())
         infordata = []
         contents = driver.find_element_by_class_name("disclosure-tbody").find_elements_by_tag_name("tr")
