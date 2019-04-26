@@ -8,7 +8,6 @@ from sqlalchemy.orm import scoped_session
 
 class stock_news_research_utils(object):
 
-
       def __init__(self,spidernews):
           self.spidernews = spidernews
 
