@@ -34,7 +34,7 @@ class stockbasicsideutils(object):
 
     def getbasicimportantinfor(self):
         data = tu.get_report_data(year=2017,quarter=4)
-        print data
+        print(data)
 
 if __name__ == '__main__':
     #engine = dbmanager.sql_manager().init_engine()

@@ -43,7 +43,8 @@ class stock_circulat_holdlers(object):
                   time.sleep(2)
                   df = pro.top10_floatholders(ts_code=tradecode, start_date=current_start_date,
                                               end_date=current_end_date)
-                  holders_pandas = pd.concat([holders_pandas, df])
+                  #holders_pandas = pd.concat([holders_pandas, df])
+                  df.drop_duplicates(keep='first', inplace=True)
                   engine = dbmanager.sql_manager().init_engine()
                   pd.io.sql.to_sql(df, 'finance_system_stock_circulat_holds_data_' + current_start_date, con=engine,
                                    if_exists='append', index=False,
