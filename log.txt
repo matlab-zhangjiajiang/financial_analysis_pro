@@ -39566,3 +39566,7 @@
 2019-04-25 16:08:28,401 - datetimeutils - INFO - 初始化时间工具类
 2019-04-25 16:08:28,496 - datetimeutils - INFO - 初始化时间工具类
 2019-04-25 16:08:28,496 - datetimeutils - INFO - 初始化时间工具类
+2019-04-27 14:25:28,702 - main_job - INFO - sched----->start---->init_current_day_pe_job
+2019-04-27 14:25:28,703 - main_job - INFO - sched----->end---->init_current_day_pe_job
+2019-04-27 14:33:33,205 - datetimeutils - INFO - 初始化时间工具类
+2019-04-27 14:35:28,706 - exchange_stock_notice_manager - INFO - ----main----
