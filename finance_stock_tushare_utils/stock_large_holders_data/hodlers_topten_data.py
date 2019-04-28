@@ -19,7 +19,6 @@ class stock_circulat_holdlers(object):
           pro = tu.pro_api()
           basicdata = pro.stock_basic(exchange_id='', fields='ts_code,symbol,name,list_date,list_status')
           currentlist = list(basicdata['ts_code'])
-          holders_pandas = None
 
 
           #2018年第四季度
@@ -38,7 +37,20 @@ class stock_circulat_holdlers(object):
           #current_start_date='20180301'
           #current_end_date='20180530'
 
+          data = []
+          try:
+             sql = ' SELECT  DISTINCT ts_code  from  finance_system_stock_circulat_holds_data_'\
+                + current_start_date + '  GROUP BY ts_code'
+             conengine = dbmanager.sql_manager().init_engine()
+             df = pd.read_sql_query(sql, conengine)
+             data = list(df['ts_code'])
+          except Exception as error:
+             logger.info(error.args)
+
           for tradecode in currentlist:
+              if tradecode in data:
+                 logger.info("已经存在的CODE:",tradecode)
+                 continue
               try:
                   time.sleep(2)
                   df = pro.top10_floatholders(ts_code=tradecode, start_date=current_start_date,
@@ -49,7 +61,7 @@ class stock_circulat_holdlers(object):
                   pd.io.sql.to_sql(df, 'finance_system_stock_circulat_holds_data_' + current_start_date, con=engine,
                                    if_exists='append', index=False,chunksize=1000)
               except Exception as error:
-                  logger.info(error.message)
+                  logger.info(error.args)
 
           self.formate_current_stock_holders_topten_table(current_start_date)
 
