@@ -20,10 +20,13 @@ class stock_circulat_holdlers(object):
           basicdata = pro.stock_basic(exchange_id='', fields='ts_code,symbol,name,list_date,list_status')
           currentlist = list(basicdata['ts_code'])
 
+          #2019年第一季度
+          current_start_date = '20190331'
+          current_end_date = '20190531'
 
           #2018年第四季度
-          current_start_date = '20181030'
-          current_end_date = '20190331'
+          #current_start_date = '20181030'
+          #current_end_date = '20190331'
 
           ##2018年第三季度
           #current_start_date = '20180830'
@@ -49,7 +52,7 @@ class stock_circulat_holdlers(object):
 
           for tradecode in currentlist:
               if tradecode in data:
-                 logger.info("已经存在的CODE:",tradecode)
+                 logger.info("已经存在的CODE:"+tradecode)
                  continue
               try:
                   time.sleep(2)
@@ -68,7 +71,7 @@ class stock_circulat_holdlers(object):
       def test_init_stock_holders_topten(self):
           # 设置PRO-API
           pro = tu.pro_api()
-          df = pro.top10_floatholders(ts_code='600468.SH', start_date='20181030', end_date='20190331')
+          df = pro.top10_floatholders(ts_code='600468.SH', start_date='20190331', end_date='20190531')
           print(df)
 
 

@@ -110,8 +110,11 @@ if __name__ == '__main__':
     #current_table_start_id = '20180630'
     #current_table_end_id = '20180830'
 
-    current_table_start_id = '20180830'
-    current_table_end_id = '20181030'
+    #current_table_start_id = '20180830'
+    #current_table_end_id = '20181030'
+
+    current_table_start_id = '20181030'
+    current_table_end_id = '20190331'
 
     #current_holdname = '徐开东'
     # stock_topten_holdlers_change().init_strong_stock_holder(current_start_date)
