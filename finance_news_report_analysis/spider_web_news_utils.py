@@ -20,14 +20,18 @@ def daily_wallstreetcn_spider():
     chrome_options.add_argument('--headless')
     driver = webdriver.Chrome(chrome_options=chrome_options)
     driver.get(NEWS_URL['wallstreetcn'])
-    contents = driver.find_elements_by_class_name("live-item")
-    for vo in contents:
-        text = vo.find_element_by_class_name("live-item_html").text
-        infor = utils.replace_special_character(text)
-        index_date = vo.find_element_by_class_name("live-item_created").text
-        href = vo.find_element_by_tag_name("a").get_attribute("href")
-        save_current_news('wallstreetcn',index_date,href,infor)
-    driver.quit()
+    try:
+        contents = driver.find_elements_by_class_name("live-item")
+        for vo in contents:
+            text = vo.find_element_by_class_name("live-item_html").text
+            infor = utils.replace_special_character(text)
+            index_date = vo.find_element_by_class_name("live-item_created").text
+            href = vo.find_element_by_tag_name("a").get_attribute("href")
+            save_current_news('wallstreetcn',index_date,href,infor)
+    except Exception as error:
+        print('spider error',error)
+    finally:
+        driver.quit()
 
 
 def daily_yuncaijing_spider():
