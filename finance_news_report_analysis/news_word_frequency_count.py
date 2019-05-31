@@ -3,7 +3,6 @@ import jieba
 import jieba.analyse
 import pandas as pd
 import tushare as tu
-import os
 from finance_common_utils.mysql_dbutils import sqlalchemy_dbutils as dbmanager
 import sys
 sys.getdefaultencoding()
@@ -37,7 +36,7 @@ def words_frequency_count():
     df = df[df.context.isnull() == False]
     for idx, row in df.iterrows():
         context = row['context']
-        word_list = jieba.analyse.extract_tags(context, topK=3)
+        word_list = jieba.analyse.extract_tags(context,topK=100)
         for kv in word_list:
             if kv not in worddict:
                worddict[kv] = 1
