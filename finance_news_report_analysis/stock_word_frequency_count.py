@@ -46,6 +46,8 @@ def words_frequency_count():
     engine = dbmanager.sql_manager().init_engine()
     pd.io.sql.to_sql(result, 'finance_system_stock_word_frequency_data', con=engine, if_exists='replace', index=False,
                  chunksize=1000)
+    engine.execute('ALTER TABLE `finance_system_stock_word_frequency_data` '
+                   'MODIFY COLUMN `key`  varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL FIRST')
 
 
 if __name__ == '__main__':
