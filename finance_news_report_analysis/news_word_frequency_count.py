@@ -36,7 +36,7 @@ def words_frequency_count():
     df = df[df.context.isnull() == False]
     for idx, row in df.iterrows():
         context = row['context']
-        word_list = jieba.analyse.extract_tags(context,topK=100)
+        word_list = jieba.analyse.extract_tags(context,topK=3)
         for kv in word_list:
             if kv not in worddict:
                worddict[kv] = 1
