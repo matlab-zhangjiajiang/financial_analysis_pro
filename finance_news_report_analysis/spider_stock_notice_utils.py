@@ -24,7 +24,7 @@ class exchange_stock_notice_manager(object):
         chrome_options = Options()
         chrome_options.add_argument('--headless')  # 指定无界面形式运行
         chrome_options.add_argument('no-sandbox')  # 禁止沙盒
-        driver = webdriver.Chrome(chrome_options=chrome_options)
+        driver = webdriver.Chrome(options=chrome_options)
         driver.get(NEWS_URL['sse.com'])
         logger.info('TIME:--->'+datetime_utils.datetimeutils().get_current_datetime())
         time.sleep(5)
@@ -45,7 +45,7 @@ class exchange_stock_notice_manager(object):
         chrome_options = Options()
         chrome_options.add_argument('--headless')  # 指定无界面形式运行
         chrome_options.add_argument('no-sandbox')  # 禁止沙盒
-        driver = webdriver.Chrome(chrome_options=chrome_options)
+        driver = webdriver.Chrome(options=chrome_options)
         driver.get(NEWS_URL['szse.com'])
         logger.info('TIME:--->' + datetime_utils.datetimeutils().get_current_datetime())
         time.sleep(5)

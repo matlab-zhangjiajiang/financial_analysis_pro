@@ -19,7 +19,7 @@ def daily_wallstreetcn_spider():
     chrome_options = Options()
     chrome_options.add_argument('--headless')  # 指定无界面形式运行
     chrome_options.add_argument('no-sandbox')  # 禁止沙盒
-    driver = webdriver.Chrome(chrome_options=chrome_options)
+    driver = webdriver.Chrome(options=chrome_options)
     driver.get(NEWS_URL['wallstreetcn'])
     try:
         contents = driver.find_elements_by_class_name("live-item")
@@ -39,7 +39,7 @@ def daily_yuncaijing_spider():
     chrome_options = Options()
     chrome_options.add_argument('--headless')  # 指定无界面形式运行
     chrome_options.add_argument('no-sandbox')  # 禁止沙盒
-    driver = webdriver.Chrome(chrome_options=chrome_options)
+    driver = webdriver.Chrome(options=chrome_options)
     try:
         driver.get(NEWS_URL['yuncaijing'])
         contents = driver.find_element_by_class_name("news-ul").find_elements_by_tag_name("li")
@@ -59,7 +59,7 @@ def daily_tonghuasun_spider():
     chrome_options = Options()
     chrome_options.add_argument('--headless')  # 指定无界面形式运行
     chrome_options.add_argument('no-sandbox')  # 禁止沙盒
-    driver = webdriver.Chrome(chrome_options=chrome_options)
+    driver = webdriver.Chrome(options=chrome_options)
     driver.get(NEWS_URL['tonghuasun'])
     content = driver.find_element_by_css_selector("[class='newsText all']")
     contents = content.find_elements_by_tag_name("li")
@@ -77,7 +77,7 @@ def daily_eastmoney_spider():
     chrome_options = Options()
     chrome_options.add_argument('--headless')  # 指定无界面形式运行
     chrome_options.add_argument('no-sandbox')  # 禁止沙盒
-    driver = webdriver.Chrome(chrome_options=chrome_options)
+    driver = webdriver.Chrome(options=chrome_options)
     try:
        driver.get(NEWS_URL['eastmoney'])
        content = driver.find_element_by_id("livenews-list")
@@ -104,7 +104,7 @@ def daily_sina_spider():
     chrome_options = Options()
     chrome_options.add_argument('--headless')  # 指定无界面形式运行
     chrome_options.add_argument('no-sandbox')  # 禁止沙盒
-    driver = webdriver.Chrome(chrome_options=chrome_options)
+    driver = webdriver.Chrome(options=chrome_options)
     try:
        driver.get(NEWS_URL['sina'])
        content = driver.find_element_by_id("liveList01")
