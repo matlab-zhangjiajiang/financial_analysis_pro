@@ -17,7 +17,8 @@ NEWS_URL={'wallstreetcn':'https://wallstreetcn.com/live/a-stock',
 
 def daily_wallstreetcn_spider():
     chrome_options = Options()
-    chrome_options.add_argument('--headless')
+    chrome_options.add_argument('--headless')  # 指定无界面形式运行
+    chrome_options.add_argument('no-sandbox')  # 禁止沙盒
     driver = webdriver.Chrome(chrome_options=chrome_options)
     driver.get(NEWS_URL['wallstreetcn'])
     try:
@@ -36,7 +37,8 @@ def daily_wallstreetcn_spider():
 
 def daily_yuncaijing_spider():
     chrome_options = Options()
-    chrome_options.add_argument('--headless')
+    chrome_options.add_argument('--headless')  # 指定无界面形式运行
+    chrome_options.add_argument('no-sandbox')  # 禁止沙盒
     driver = webdriver.Chrome(chrome_options=chrome_options)
     try:
         driver.get(NEWS_URL['yuncaijing'])
@@ -55,7 +57,8 @@ def daily_yuncaijing_spider():
 
 def daily_tonghuasun_spider():
     chrome_options = Options()
-    chrome_options.add_argument('--headless')
+    chrome_options.add_argument('--headless')  # 指定无界面形式运行
+    chrome_options.add_argument('no-sandbox')  # 禁止沙盒
     driver = webdriver.Chrome(chrome_options=chrome_options)
     driver.get(NEWS_URL['tonghuasun'])
     content = driver.find_element_by_css_selector("[class='newsText all']")
@@ -72,7 +75,8 @@ def daily_tonghuasun_spider():
 
 def daily_eastmoney_spider():
     chrome_options = Options()
-    chrome_options.add_argument('--headless')
+    chrome_options.add_argument('--headless')  # 指定无界面形式运行
+    chrome_options.add_argument('no-sandbox')  # 禁止沙盒
     driver = webdriver.Chrome(chrome_options=chrome_options)
     try:
        driver.get(NEWS_URL['eastmoney'])
@@ -98,7 +102,8 @@ def daily_eastmoney_spider():
 
 def daily_sina_spider():
     chrome_options = Options()
-    chrome_options.add_argument('--headless')
+    chrome_options.add_argument('--headless')  # 指定无界面形式运行
+    chrome_options.add_argument('no-sandbox')  # 禁止沙盒
     driver = webdriver.Chrome(chrome_options=chrome_options)
     try:
        driver.get(NEWS_URL['sina'])

@@ -18,7 +18,8 @@ logger = loggers.Logger(logname='log.txt', loglevel=1, logger="init_stock_money_
 
 def init_stock_money_margin():
     chrome_options = Options()
-    chrome_options.add_argument('--headless')
+    chrome_options.add_argument('--headless')  # 指定无界面形式运行
+    chrome_options.add_argument('no-sandbox')  # 禁止沙盒
     driver = webdriver.Chrome(chrome_options=chrome_options)
     driver.get(NEWS_URL['eastmoney'])
     logger.info('TIME:--->' + datetime_utils.datetimeutils().get_current_datetime())

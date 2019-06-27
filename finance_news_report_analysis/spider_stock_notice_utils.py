@@ -22,7 +22,8 @@ class exchange_stock_notice_manager(object):
     def get_announcement_notice_sse(self):
         logger.info('----main----')
         chrome_options = Options()
-        chrome_options.add_argument('--headless')
+        chrome_options.add_argument('--headless')  # 指定无界面形式运行
+        chrome_options.add_argument('no-sandbox')  # 禁止沙盒
         driver = webdriver.Chrome(chrome_options=chrome_options)
         driver.get(NEWS_URL['sse.com'])
         logger.info('TIME:--->'+datetime_utils.datetimeutils().get_current_datetime())
@@ -42,7 +43,8 @@ class exchange_stock_notice_manager(object):
     #深交所公告
     def get_announcement_notice_szse(self):
         chrome_options = Options()
-        chrome_options.add_argument('--headless')
+        chrome_options.add_argument('--headless')  # 指定无界面形式运行
+        chrome_options.add_argument('no-sandbox')  # 禁止沙盒
         driver = webdriver.Chrome(chrome_options=chrome_options)
         driver.get(NEWS_URL['szse.com'])
         logger.info('TIME:--->' + datetime_utils.datetimeutils().get_current_datetime())
