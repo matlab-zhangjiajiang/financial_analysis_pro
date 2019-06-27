@@ -29,7 +29,7 @@ def words_frequency_count():
 
 
     conengine = dbmanager.sql_manager().init_engine()
-    sql ='SELECT * FROM FINANCE_SYSTEM_STOCK_NEWS_DATA WHERE DATE(CREATE_TIME) = CURDATE()'
+    sql ='SELECT * FROM finance_system_stock_news_data WHERE DATE(CREATE_TIME) = CURDATE()'
     df = pd.read_sql_query(sql,conengine)
     df = df[df.context.isnull() == False]
     for idx, row in df.iterrows():
