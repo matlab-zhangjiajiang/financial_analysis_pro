@@ -8,8 +8,8 @@ Base = declarative_base()
 class stock_set_bid_base_dto(Base):
 
     __tablename__ = 'finance_system_stock_set_bid_data'
-
-    code = Column(String(32), primary_key=True)
+    mainkey = Column(String(32), primary_key=True)
+    code = Column(String(32))
     industry = Column(String(150))
     name = Column(String(100))
     createtime = Column(DateTime)

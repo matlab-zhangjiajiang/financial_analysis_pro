@@ -42,7 +42,8 @@ class stock_set_bid_price(object):
                                  print('------->'+str(row.code) + ':' + str(row.name)+'----->执行查询出错')
          for row in listdata:
              print(str(row.code) + ':' + str(row.name)+'------->保存开始')
-             vo = dto(code=row.code, name=row.name, industry=row.industry, createtime=datetime_utils.datetimeutils().get_current_time())
+             mainkey = row.code + datetime_utils.datetimeutils().get_current_time_new()
+             vo = dto(mainkey=mainkey,code=row.code, name=row.name, industry=row.industry, createtime=datetime_utils.datetimeutils().get_current_time())
              dbmanager.sql_manager().single_common_save_basedata(vo)
 
 
@@ -80,7 +81,8 @@ class stock_set_bid_price(object):
                                  continue
                                  #print('------->'+str(row.code) + ':' + str(row.name)+'----->执行查询出错')
          for row in listdata:
-             currentdto = ratedto(code=row.code, name=row.name, industry=row.industry,
+             mainkey = row.code+datetime_utils.datetimeutils().get_current_time_new()
+             currentdto = ratedto(mainkey=mainkey,code=row.code, name=row.name, industry=row.industry,
                                   createtime=datetime_utils.datetimeutils().get_current_time(), outstanding=row.outstanding)
              dbmanager.sql_manager().single_common_save_basedata(currentdto)
 
