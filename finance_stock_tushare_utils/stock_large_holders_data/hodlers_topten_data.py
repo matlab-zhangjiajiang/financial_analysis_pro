@@ -20,9 +20,14 @@ class stock_circulat_holdlers(object):
           basicdata = pro.stock_basic(exchange_id='', fields='ts_code,symbol,name,list_date,list_status')
           currentlist = list(basicdata['ts_code'])
 
+
+          #2019年第二季度
+          current_start_date = '20190531'
+          current_end_date = '20190731'
+
           #2019年第一季度
-          current_start_date = '20190331'
-          current_end_date = '20190531'
+          #current_start_date = '20190331'
+          #current_end_date = '20190531'
 
           #2018年第四季度
           #current_start_date = '20181030'
