@@ -3,12 +3,13 @@ import requests
 import pandas as pd
 import json
 
-BASE_URL = 'http://data.eastmoney.com/DataCenter_V3/Chart/cjsj/weeklystockaccountsnew.ashx?isxml=true'
+from finance_stock_common_spider.eastmoney_datacenter_spider import spider_web_address as address
+
 
 class increase_num_open_users(object):
 
    def get_raw_data(self):
-       response = requests.get(BASE_URL)
+       response = requests.get(address.spider_web_address().DATA_URL['INCREASE_USERS'])
        raw_date = json.loads(response.text)
        print(raw_date)
        date = raw_date['X'].split(',')
@@ -24,14 +25,15 @@ class increase_num_open_users(object):
        return self.generate_ts(data)
 
 if __name__ == '__main__':
-    account_increment =increase_num_open_users().get_account_increment()
-    # ��ӡ��������
+
+    account_increment = increase_num_open_users().get_account_increment()
+
     print(account_increment)
-    # �����׼��
+
     print(account_increment.std())
-    # ������Сֵ
+
     print(account_increment.min())
-    # �������ֵ
+
     print(account_increment.max())
-    # �����ֵ
+
     print(account_increment.mean())
