@@ -15,10 +15,14 @@ class dayly_increase_holders(object):
         data = raw_data['Data'][0]['Data']
         for cdata in data:
             splitdata = cdata.split('|')
-            datalist = splitdata[2:]
-            vo = daylydata()
-
-            #print('当前集合长度:'+str(len(splitdata)))
+            daylyvo = splitdata[2:]
+            main_key = daylyvo[0]+daylyvo[16].replace('-','')
+            vo = daylydata(mainkey=main_key,stock_code=daylyvo[0],current_price=daylyvo[1],up_and_down=daylyvo[2],
+                           stock_name=daylyvo[3],holder_name=daylyvo[4],mark_flag=1,cgbd_bd_num=daylyvo[6],
+                           cgbd_zzgb_ratio=daylyvo[7],cgbd_zltg_ratio=daylyvo[8],bdhcd_cg_sum_num=daylyvo[10],
+                           bdhcd_zzgb_ratio=daylyvo[11],bdhcd_cltg_num=daylyvo[12],bdhcd_zltg_ratio=daylyvo[13],
+                           bd_start_date=daylyvo[14],bd_end_date=daylyvo[15],gg_date=daylyvo[16])
+            dbmanager.sql_manager().single_common_save_basedata(vo)
 
 
 if __name__ == '__main__':
