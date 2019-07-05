@@ -3,6 +3,8 @@ import requests
 import pandas as pd
 import json
 from finance_stock_common_spider.eastmoney_datacenter_spider import spider_web_address as address
+from finance_common_utils.mysql_dbutils import sqlalchemy_dbutils as dbmanager
+from finance_stock_dao_model.stock_dayly_increase_holder_dto import stock_dayly_increase_holder_dto as daylydata
 
 
 class dayly_increase_holders(object):
@@ -14,9 +16,7 @@ class dayly_increase_holders(object):
         for cdata in data:
             splitdata = cdata.split('|')
             datalist = splitdata[2:]
-
-
-
+            vo = daylydata()
 
             #print('当前集合长度:'+str(len(splitdata)))
 
