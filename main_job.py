@@ -10,6 +10,7 @@ from finance_news_report_analysis import news_word_frequency_count as wordsearch
 from finance_news_report_analysis import stock_word_frequency_count as stockwordsearch
 from finance_stock_tushare_utils.stock_money_flow_data import stock_money_flow_initdata as flowdata
 from finance_stock_tushare_utils.stock_money_flow_data import stock_money_margin_trade_data as margindata
+from finance_stock_common_spider.eastmoney_datacenter_spider import dayly_increase_holders as daylyincrease
 from finance_stock_pytdx_utils import stock_set_bid_price as setbidprice
 from finance_news_report_analysis import notice_constant as constant
 from finance_common_utils.common_utils import Logger as loggers
@@ -66,6 +67,13 @@ def news_report_research_job():
 
 
 
+#每日股东增持情况.
+@sched.scheduled_job('interval', seconds=600)
+def dayly_increase_holders_job():
+    daylyincrease.dayly_increase_holders().get_dayly_increase_holders_raw_data()
+
+
+
 #表示从星期一到星期五下午19:30（AM）直到2089-04-24 00:00:00
 @sched.scheduled_job('cron',day_of_week='mon-fri', hour=19, minute=30,end_date='2089-04-24')
 def init_current_day_pe_job():
@@ -81,6 +89,9 @@ def init_current_set_bid_price_jon():
     setbidjob = setbidprice.stock_set_bid_price()
     #开盘每笔成交数大于1000手
     setbidjob.init_bid_price_stock(1000)
+
+
+
 
 
 
