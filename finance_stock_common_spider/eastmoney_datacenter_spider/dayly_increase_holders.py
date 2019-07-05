@@ -13,8 +13,12 @@ class dayly_increase_holders(object):
         data = raw_data['Data'][0]['Data']
         for cdata in data:
             splitdata = cdata.split('|')
-            print(splitdata)
-            print('当前集合长度:'+str(len(splitdata)))
+            datalist = splitdata[2:]
+
+
+
+
+            #print('当前集合长度:'+str(len(splitdata)))
 
 
 if __name__ == '__main__':
