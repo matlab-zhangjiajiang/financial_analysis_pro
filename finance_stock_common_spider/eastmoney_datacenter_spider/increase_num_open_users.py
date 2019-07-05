@@ -2,7 +2,7 @@
 import requests
 import pandas as pd
 import json
-from finance_stock_common_spider.eastmoney_datacenter_spider import spider_web_address as address
+from finance_stock_common_spider.eastmoney_datacenter_spider import spider_data_web_address as address
 
 
 class increase_num_open_users(object):
