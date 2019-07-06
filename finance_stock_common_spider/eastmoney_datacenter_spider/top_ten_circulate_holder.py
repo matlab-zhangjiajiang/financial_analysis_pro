@@ -3,12 +3,19 @@ from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 import time
 from finance_stock_common_spider.eastmoney_datacenter_spider import spider_data_web_address as address
+from finance_stock_tushare_utils.stock_basic_data import stock_area_tools as areatools
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
 from finance_common_utils.common_utils import datetime_utils
+import tushare as tu
 
 class top_ten_circulate_holder(object):
+
+    def __init__(self):
+        # 设置TOKEN
+        tu.set_token('b2d9cda1ccac47a845fc2dd31e41a39185bfa43d5b6fa110fddf21e2')
+        tu.pro_api()
 
     #ggdate 公告时间
     def get_top_ten_circulate_holder(self,stockcode,ggdate):
@@ -34,17 +41,40 @@ class top_ten_circulate_holder(object):
                current_data = li_value.find_elements_by_tag_name('td')
                i=0
                holder_name =''
+               holder_nature=''
+               stock_type=''
+               hold_amount=0
+               zzltg_cg_ratio=0
+               zj_state=''
+               bd_ratio=0
                for holder_data in current_data:
-                   
-
+                   if i==0:
+                       holder_name =holder_data.text
+                   elif i==1:
+                       holder_nature = holder_data.text
+                   elif i==2:
+                       stock_type = holder_data.text
+                   elif i==3:
+                       hold_amount = holder_data.text.replace(',','')
+                   elif i==4:
+                       zzltg_cg_ratio = holder_data.text.replace('%','')
+                   elif i==5:
+                       zj_state = holder_data.text.replace('不变','0').replace(',','')
+                   elif i==6:
+                       bd_ratio = holder_data.text.replace('%','').replace('--','0')
                    i=i+1
-
+               print(holder_name+'--'+holder_nature+'--'+stock_type+'--'+hold_amount+'--'+zzltg_cg_ratio+'--'+zj_state+'--'+bd_ratio)
                print('--------------------->')
+        driver.close()
 
 
 
     def spider_cron_top_ten_circulate_holder(self):
-        self.get_top_ten_circulate_holder('SH601390','2019-03-31')
+        basicdata = tu.get_stock_basics()
+        for stokdata in list(basicdata.index):
+            areacode = areatools.stock_area_tools().get_stock_area_code(stokdata)
+            mainkey = areacode+stokdata
+            self.get_top_ten_circulate_holder(mainkey,'2019-03-31')
 
 
 if __name__ == '__main__':

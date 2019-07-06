@@ -8,8 +8,13 @@ class stock_circulat_holds_data_20190630_dto(Base):
 
     __tablename__ = 'finance_system_stock_circulat_holds_data_20190630'
 
-    stock_code = Column(String(32))
-    info_url = Column(String(150))
-    info_title = Column(String(200),primary_key=True)
-    key_time = Column(DateTime)
-    news_flag = Column(Integer())
+    ts_code = Column(String(32))
+    ann_date = Column(DateTime)
+    end_date = Column(DateTime)
+    holder_name = Column(String(150))
+    hold_amount = Column(Float(15,2))
+    holder_nature = Column(String(150))
+    stock_type = Column(String(50))
+    zzltg_cg_ratio = Column(Float(5,2))
+    zj_state = Column(String(50))
+    bd_ratio = Column(Float(5,2))

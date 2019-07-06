@@ -16,7 +16,7 @@ class stock_circulat_holdlers(object):
 
       def init_stock_holders_topten(self):
           # 设置PRO-API
-          pro = tu.pro_api()
+          pro = tu.pro_api('b2d9cda1ccac47a845fc2dd31e41a39185bfa43d5b6fa110fddf21e2')
           basicdata = pro.stock_basic(exchange_id='', fields='ts_code,symbol,name,list_date,list_status')
           currentlist = list(basicdata['ts_code'])
 
