@@ -24,8 +24,10 @@ class top_ten_circulate_holder(object):
         chrome_options.add_argument('no-sandbox')  # 禁止沙盒
         driver = webdriver.Chrome(options=chrome_options)
         #获取对应的地址
-        driver.get(address.spider_web_address().DATA_URL['TOP_TEN_CIRCULATE_HOLDER']+stockcode)
-        WebDriverWait(driver, 30).until(EC.presence_of_element_located((By.ID, 'TTCS_Table_Div')))
+        url = address.spider_web_address().DATA_URL['TOP_TEN_CIRCULATE_HOLDER']+stockcode
+        print(url)
+        driver.get(url)
+        WebDriverWait(driver, 30).until(EC.presence_of_element_located((By.CLASS_NAME, 'content')))
         #当前年份公告列表
         element = driver.find_element_by_class_name('tab')
         datavalus = element.find_elements_by_tag_name('li')
@@ -74,6 +76,7 @@ class top_ten_circulate_holder(object):
         for stokdata in list(basicdata.index):
             areacode = areatools.stock_area_tools().get_stock_area_code(stokdata)
             mainkey = areacode+stokdata
+            print(mainkey)
             self.get_top_ten_circulate_holder(mainkey,'2019-03-31')
 
 
