@@ -91,6 +91,10 @@ def init_current_set_bid_price_jon():
     setbidjob.init_bid_price_stock(1000)
 
 
+#爬取
+@sched.scheduled_job('cron',day_of_week='mon-fri', hour=21, minute=30,end_date='2089-04-24')
+def init_cron_top_ten_circulate_holder():
+    print('--------------')
 
 
 
