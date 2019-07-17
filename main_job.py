@@ -3,6 +3,7 @@
 from apscheduler.schedulers.blocking import BlockingScheduler
 from finance_stock_tushare_utils.stock_basic_data import init_current_bigplate_infor as bigplate
 from finance_stock_tushare_utils.stock_large_holders_data import holdlers_change_data as holderchange
+from finance_stock_tushare_utils.stock_large_holders_data import hodlers_topten_data as top10change
 from finance_news_report_analysis import spider_stock_notice_utils as remanager
 from finance_news_report_analysis import stock_news_research_utils as newsmanager
 from finance_news_report_analysis import spider_web_news_utils as webmaneger
@@ -19,12 +20,10 @@ sched = BlockingScheduler()
 
 logger = loggers.Logger(logname='log.txt', loglevel=1, logger="main_job").getlog()
 
-@sched.scheduled_job('cron',day_of_week='mon-fri', hour=17, minute=30,end_date='2089-04-24')
+@sched.scheduled_job('cron',day_of_week='mon-fri', hour=12, minute=30,end_date='2089-04-24')
 def holders_across_holdes_job():
-    holder = holderchange.stock_topten_holdlers_change()
-    current_table_start_id = '20180301'
-    current_table_end_id = '20180630'
-    #holder.topten_holders_across_hold(current_table_start_id, current_table_end_id)
+    holder = top10change.stock_circulat_holdlers()
+    holder.init_stock_holders_topten()
 
 
 ##南上北下资金流向--融资融券信息
