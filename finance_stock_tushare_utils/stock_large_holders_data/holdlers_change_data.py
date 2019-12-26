@@ -2,8 +2,6 @@
 import tushare as tu
 import pandas as pd
 import sys
-import imp
-imp.reload(sys)
 from finance_common_utils.mysql_dbutils import sqlalchemy_dbutils as dbmanager
 from itertools import combinations
 
@@ -113,11 +111,14 @@ if __name__ == '__main__':
     #current_table_start_id = '20180830'
     #current_table_end_id = '20181030'
 
-    current_table_start_id = '20181030'
-    current_table_end_id = '20190331'
+    #current_table_start_id = '20181030'
+    #current_table_end_id = '20190331'
+
+    current_table_start_id = '20190331'
+    current_table_end_id = '20190531'
 
     #current_holdname = '徐开东'
     # stock_topten_holdlers_change().init_strong_stock_holder(current_start_date)
     # stock_topten_holdlers_change().increase_hold_stock_infor(current_table_start_id,current_table_end_id,current_holdname)
-    stock_topten_holdlers_change().topten_holders_across_hold(current_table_start_id, current_table_end_id)
-    # stock_topten_holdlers_change().all_increase_hold_stock_infor(current_table_start_id, current_table_end_id)
+    # stock_topten_holdlers_change().topten_holders_across_hold(current_table_start_id, current_table_end_id)
+    stock_topten_holdlers_change().all_increase_hold_stock_infor(current_table_start_id, current_table_end_id)
