@@ -90,5 +90,5 @@ class stock_circulat_holdlers(object):
 
 
 if __name__ == '__main__':
-      stock_circulat_holdlers().init_stock_holders_topten()
-      #stock_circulat_holdlers().test_init_stock_holders_topten()
+      #stock_circulat_holdlers().init_stock_holders_topten()
+      stock_circulat_holdlers().test_init_stock_holders_topten()

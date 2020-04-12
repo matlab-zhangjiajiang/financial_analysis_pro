@@ -37,6 +37,12 @@ class decide_current_stock_banker(object):
                             print (error.message)
 
 if __name__ == '__main__':
-    decide_current_stock_banker().decide_stock_banker()
+    #decide_current_stock_banker().decide_stock_banker()
     #returndata = api.to_df(api.get_transaction_data(TDXParams.MARKET_SZ,'000006', 0, 1600))
     #print(returndata)
+
+    from pytdx.crawler.history_financial_crawler import HistoryFinancialListCrawler
+
+    crawler = HistoryFinancialListCrawler()
+    list_data = crawler.fetch_and_parse()
+    print(pd.DataFrame(data=list_data))
