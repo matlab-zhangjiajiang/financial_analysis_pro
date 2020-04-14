@@ -11,11 +11,11 @@ class dayly_add_stock_topten_holders(object):
 
     def get_dayly_add_topten_holders_raw_data(self):
         response = requests.get(address.spider_web_address().DATA_URL['TOP_TEN_HOLDER_ADDER'])
-        current_data = str(response.text.encode('utf-8'))
+        current_data = str(response.text)
         data = current_data.find('DlswLagO =')+11
-        message = current_data[data:-1]
-        #raw_data = json.loads(message)
-        print(message)
+        message = current_data[data:-1].replace('pages','\"pages\"').replace('data','\"data\"')
+        raw_data = json.loads(message)
+        print(raw_data)
 
 
 
