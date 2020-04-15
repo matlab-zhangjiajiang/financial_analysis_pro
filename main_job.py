@@ -12,6 +12,7 @@ from finance_news_report_analysis import stock_word_frequency_count as stockword
 from finance_stock_tushare_utils.stock_money_flow_data import stock_money_flow_initdata as flowdata
 from finance_stock_tushare_utils.stock_money_flow_data import stock_money_margin_trade_data as margindata
 from finance_stock_common_spider.eastmoney_datacenter_spider import dayly_increase_holders as daylyincrease
+from finance_stock_common_spider.eastmoney_datacenter_spider import top_ten_holders_new_import as newimport
 from finance_stock_pytdx_utils import stock_set_bid_price as setbidprice
 from finance_news_report_analysis import notice_constant as constant
 from finance_common_utils.common_utils import Logger as loggers
@@ -70,7 +71,7 @@ def news_report_research_job():
 @sched.scheduled_job('interval', seconds=600)
 def dayly_increase_holders_job():
     daylyincrease.dayly_increase_holders().get_dayly_increase_holders_raw_data()
-
+    newimport.top_ten_holders_new_import.get_dayly_add_topten_holders_raw_data()
 
 
 #表示从星期一到星期五下午19:30（AM）直到2089-04-24 00:00:00
