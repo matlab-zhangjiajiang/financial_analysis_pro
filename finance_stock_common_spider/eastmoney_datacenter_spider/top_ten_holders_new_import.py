@@ -7,7 +7,7 @@ from finance_common_utils.mysql_dbutils import sqlalchemy_dbutils as dbmanager
 from finance_stock_dao_model.stock_dayly_increase_holder_dto import stock_dayly_increase_holder_dto as daylydata
 
 
-class dayly_add_stock_topten_holders(object):
+class top_ten_holders_new_import(object):
 
     def get_dayly_add_topten_holders_raw_data(self):
         response = requests.get(address.spider_web_address().DATA_URL['TOP_TEN_HOLDER_ADDER'])
@@ -20,4 +20,4 @@ class dayly_add_stock_topten_holders(object):
 
 
 if __name__ == '__main__':
-    dayly_add_stock_topten_holders().get_dayly_add_topten_holders_raw_data()
+    top_ten_holders_new_import().get_dayly_add_topten_holders_raw_data()
