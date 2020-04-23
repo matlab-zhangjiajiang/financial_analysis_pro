@@ -59,8 +59,5 @@ class top_ten_holders_new_import(object):
             driver.close()
 
 
-
-
-
 if __name__ == '__main__':
     top_ten_holders_new_import().get_dayly_add_topten_holders_raw_data()
