@@ -14,17 +14,17 @@ from finance_common_utils.common_utils import Logger as loggers
 
 logger = loggers.Logger(logname='log.txt', loglevel=1, logger="main_job").getlog()
 
-##流通股东前十(新增)
-class top_ten_holders_new_import(object):
+##流通股东前十(当前流通股东在原有基础上新增)
+class top_ten_holders_current_add(object):
 
-    def get_dayly_add_topten_holders_raw_data(self):
+    def get_topten_holders_current_add_row_data(self):
         chrome_options = Options()
         chrome_options.add_argument('--headless')  # 指定无界面形式运行
         chrome_options.add_argument('no-sandbox')  # 禁止沙盒
         driver = webdriver.Chrome(options=chrome_options)
         try:
             # 获取对应的地址
-            url = address.spider_web_address().DATA_URL['TOP_TEN_HOLDER_NEW_ADDER']
+            url = address.spider_web_address().DATA_URL['TOP_TEN_HOLDER_CURRENT_ADDER']
             driver.get(url)
             WebDriverWait(driver, 30).until(EC.presence_of_element_located((By.ID, 'tb_cgmx')))
             # 当前每天股东新增
@@ -45,14 +45,16 @@ class top_ten_holders_new_import(object):
                 rdate = datas[7]
                 sharehdnum = str(datas[8]).replace(',','')
                 zb = datas[9]
-                bz = datas[10]
-                ltsz = str(datas[11]).replace(',','')
-                ndate = datas[12]
-                mainkey = (bz + sharehdname + ndate + scode).replace(' ', '')
+                bdsum = str(datas[len(datas)-5]).replace(',','')
+                bdbl = datas[len(datas)-4]
+                bz = datas[len(datas)-3]
+                ltsz = str(datas[len(datas)-2]).replace(',','')
+                ndate = datas[len(datas)-1]
+                mainkey = (bz+sharehdname+ndate+scode).replace(' ','')
                 vo = daylydata(mainkey=mainkey,sname=sname, sharehdname=sharehdname,
                            sharehdtype=sharehdtype,  rank=rank, scode=scode,
                            rdate=rdate, sharehdnum=sharehdnum, zb=zb, ndate=ndate,
-                           bz=bz,ltsz=ltsz)
+                           bz=bz,ltsz=ltsz,bdsum =bdsum,bdbl=bdbl)
                 dbmanager.sql_manager().single_common_save_basedata(vo)
         except Exception as e:
             logger.info('执行出错!', e)
@@ -61,4 +63,4 @@ class top_ten_holders_new_import(object):
 
 
 if __name__ == '__main__':
-    top_ten_holders_new_import().get_dayly_add_topten_holders_raw_data()
+    top_ten_holders_current_add().get_topten_holders_current_add_row_data()
