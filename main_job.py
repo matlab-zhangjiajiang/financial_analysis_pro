@@ -13,6 +13,7 @@ from finance_stock_tushare_utils.stock_money_flow_data import stock_money_flow_i
 from finance_stock_tushare_utils.stock_money_flow_data import stock_money_margin_trade_data as margindata
 from finance_stock_common_spider.eastmoney_datacenter_spider import dayly_increase_holders as daylyincrease
 from finance_stock_common_spider.eastmoney_datacenter_spider import top_ten_holders_new_import as newimport
+from finance_stock_common_spider.eastmoney_datacenter_spider import top_ten_holders_current_add as currentadd
 from finance_stock_pytdx_utils import stock_set_bid_price as setbidprice
 from finance_news_report_analysis import notice_constant as constant
 from finance_common_utils.common_utils import Logger as loggers
@@ -52,7 +53,7 @@ def init_current_stock_news_data():
 
 
 #[公告信息]---->有利
-@sched.scheduled_job('interval', seconds=600)
+@sched.scheduled_job('interval', seconds=1200)
 def news_report_research_job():
     jobone = remanager.exchange_stock_notice_manager()
     spidernotices = jobone.get_announcement_all_notice()
@@ -68,10 +69,15 @@ def news_report_research_job():
 
 
 #每日股东增持情况.
-@sched.scheduled_job('interval', seconds=600)
+@sched.scheduled_job('interval', seconds=3600)
 def dayly_increase_holders_job():
+    #每日股东增持
     daylyincrease.dayly_increase_holders().get_dayly_increase_holders_raw_data()
+    #每日股东新增
     newimport.top_ten_holders_new_import.get_dayly_add_topten_holders_raw_data()
+    ##流通股东前十(当前流通股东在原有基础上增加)
+    currentadd.top_ten_holders_current_add.get_topten_holders_current_add_row_data()
+
 
 
 #表示从星期一到星期五下午19:30（AM）直到2089-04-24 00:00:00
