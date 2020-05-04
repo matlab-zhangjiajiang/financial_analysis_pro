@@ -69,7 +69,7 @@ def news_report_research_job():
 
 
 #每日股东增持情况.
-@sched.scheduled_job('interval', seconds=3600)
+@sched.scheduled_job('interval', seconds=1200)
 def dayly_increase_holders_job():
     #每日股东增持
     daylyincrease.dayly_increase_holders().get_dayly_increase_holders_raw_data()
