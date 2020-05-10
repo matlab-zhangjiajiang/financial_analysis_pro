@@ -55,7 +55,10 @@ class top_ten_holders_current_add(object):
                            sharehdtype=sharehdtype,  rank=rank, scode=scode,
                            rdate=rdate, sharehdnum=sharehdnum, zb=zb, ndate=ndate,
                            bz=bz,ltsz=ltsz,bdsum =bdsum,bdbl=bdbl)
-                dbmanager.sql_manager().single_common_save_basedata(vo)
+                try:
+                    dbmanager.sql_manager().single_common_save_basedata(vo)
+                except Exception as error:
+                    logger.error("保存明细十大流通股东增加明细出错!", error)
         except Exception as e:
             logger.info('执行出错!', e)
         finally:

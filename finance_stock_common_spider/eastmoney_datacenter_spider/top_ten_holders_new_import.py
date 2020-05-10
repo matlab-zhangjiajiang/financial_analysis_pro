@@ -1,4 +1,4 @@
-#utf-8
+# utf-8
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 import time
@@ -13,6 +13,7 @@ from finance_stock_dao_model.stock_topten_holders_new_import_dto import current_
 from finance_common_utils.common_utils import Logger as loggers
 
 logger = loggers.Logger(logname='log.txt', loglevel=1, logger="main_job").getlog()
+
 
 ##流通股东前十(新增)
 class top_ten_holders_new_import(object):
@@ -32,28 +33,31 @@ class top_ten_holders_new_import(object):
             tbody = element.find_element_by_tag_name('tbody')
             trdata = tbody.find_elements_by_tag_name('tr')
             for tr in trdata:
-                cdata = tr.text.replace('- - ','')
+                cdata = tr.text.replace('- - ', '')
                 cdatas = cdata.split('\n')
                 sharehdname = cdatas[1]
                 cur_tr_data = cdatas[2]
                 datas = cur_tr_data.split(' ')
                 logger.info(datas)
                 sharehdtype = datas[0]
-                rank =datas[1]
+                rank = datas[1]
                 scode = datas[2]
                 sname = datas[3]
                 rdate = datas[7]
-                sharehdnum = str(datas[8]).replace(',','')
+                sharehdnum = str(datas[8]).replace(',', '')
                 zb = datas[9]
                 bz = datas[10]
-                ltsz = str(datas[11]).replace(',','')
+                ltsz = str(datas[11]).replace(',', '')
                 ndate = datas[12]
                 mainkey = (bz + sharehdname + ndate + scode).replace(' ', '')
-                vo = daylydata(mainkey=mainkey,sname=sname, sharehdname=sharehdname,
-                           sharehdtype=sharehdtype,  rank=rank, scode=scode,
-                           rdate=rdate, sharehdnum=sharehdnum, zb=zb, ndate=ndate,
-                           bz=bz,ltsz=ltsz)
-                dbmanager.sql_manager().single_common_save_basedata(vo)
+                vo = daylydata(mainkey=mainkey, sname=sname, sharehdname=sharehdname,
+                               sharehdtype=sharehdtype, rank=rank, scode=scode,
+                               rdate=rdate, sharehdnum=sharehdnum, zb=zb, ndate=ndate,
+                               bz=bz, ltsz=ltsz)
+                try:
+                    dbmanager.sql_manager().single_common_save_basedata(vo)
+                except Exception as error:
+                    logger.error("保存明细十大流通股东增加明细出错!", error)
         except Exception as e:
             logger.info('执行出错!', e)
         finally:
