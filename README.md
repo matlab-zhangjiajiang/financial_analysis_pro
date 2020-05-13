@@ -11,5 +11,5 @@ pip install aircv==1.4.6
 pip install selenium==3.141.0
 pip install Pillow==6.2.1
 
-# 采用其他镜像安装对应的插件
+# 采用其他镜像安装对应的插件示例
 pip install scrapy -i https://pypi.tuna.tsinghua.edu.cn/simple
