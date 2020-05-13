@@ -58,10 +58,10 @@ def news_report_research_job():
     spidernotices = jobone.get_announcement_all_notice()
     constantdict = constant.notice_constant()
     jobtwo = newsmanager.stock_news_research_utils(spidernotices)
-    ##利好消息
+    # 利好消息
     jobtwo.study_stock_notice_news(constantdict.GOOD_NEWS_FLAG)
     jobtwo.select_current_news_stock(constantdict.GOOD_NEWS_FLAG)
-    ##利空消息
+    # 利空消息
     jobtwo.study_stock_notice_news(constantdict.BAD_NEWS_FLAG)
     jobtwo.select_current_news_stock(constantdict.BAD_NEWS_FLAG)
 
@@ -73,7 +73,7 @@ def dayly_increase_holders_job():
     daylyincrease.dayly_increase_holders().get_dayly_increase_holders_raw_data()
     # 每日股东新增
     newimport.top_ten_holders_new_import.get_dayly_add_topten_holders_raw_data()
-    ##流通股东前十(当前流通股东在原有基础上增加)
+    # 流通股东前十(当前流通股东在原有基础上增加)
     currentadd.top_ten_holders_current_add.get_topten_holders_current_add_row_data()
 
 
