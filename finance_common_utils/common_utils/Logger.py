@@ -1,14 +1,15 @@
-#coding=utf-8
+# coding=utf-8
 import logging
 
-#用字典保存日志级别
+# 用字典保存日志级别
 format_dict = {
-   1: logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s'),
-   2: logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s'),
-   3: logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s'),
-   4: logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s'),
-   5: logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+    1: logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s'),
+    2: logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s'),
+    3: logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s'),
+    4: logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s'),
+    5: logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 }
+
 
 class Logger():
 
